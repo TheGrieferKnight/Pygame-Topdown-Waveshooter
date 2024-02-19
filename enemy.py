@@ -5,7 +5,10 @@ from settings import *
 from sprites import *
 from player import *
 from bullet import *
+from round_if_float import round_if_float
 
+difficulty = 1
+enemy_counter = 0
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, position):
@@ -14,7 +17,7 @@ class Enemy(pygame.sprite.Sprite):
         self.image = pygame.transform.rotozoom(self.image, 0, ENEMY_SIZE)
         self.rect = self.image.get_rect()
         self.rect.center = position
-        self.speed = ENEMY_SPEED
+        self.speed = ENEMY_SPEED + enemy_counter *difficulty * 0.1 
         self.x = position[0]
         self.y = position[1]
         self.direction = pygame.math.Vector2()
@@ -22,8 +25,23 @@ class Enemy(pygame.sprite.Sprite):
         self.position = pygame.math.Vector2(position)
         self.damage_cd = DAMAGE_CD
         self.count = 0
-        self.health = 3
+        self.health = 100 + enemy_counter * difficulty * 5 
+        self.damage = 10 + enemy_counter * difficulty * 0.5      
+    
+    def change_difficulty(value, prev_value):
 
+        if value == "easy":
+
+            difficulty = 1
+
+        elif value == "medium":
+
+            difficulty = 2
+
+        elif value == "hard":
+
+            difficulty = 3
+    
     def pathing(self):
         player_vector = pygame.math.Vector2(player.hitbox.center)
         enemy_vector = pygame.math.Vector2(self.rect.center)
@@ -41,9 +59,10 @@ class Enemy(pygame.sprite.Sprite):
                 self.damage_applied = False
 
             if not self.damage_applied and (time.time() - self.timer) >= self.damage_cd:
-                player.health -= 1
+                player.health -= self.damage
                 self.count = 0
                 self.damage_applied = True
+                player.health = round_if_float(player.health)
                 player.health_display = font.render(str(player.health), True, "red")
 
         self.velocity = self.direction * self.speed
@@ -55,16 +74,19 @@ class Enemy(pygame.sprite.Sprite):
     def hit(self):
         bullet_hit = pygame.sprite.spritecollide(self, bullet_sprites_group, True)
         for bullet in bullet_hit:
-            self.health -= 1
+            self.health -= bullet.damage
 
-    def death(self):
+    def death(self, enemy_counter1):
         if self.health == 0 or self.health < 0:
             self.kill()
+            global enemy_counter
+            enemy_counter = enemy_counter1 + 1
+            
 
     def update(self):
         self.pathing()
         self.hit()
-        self.death()
+        self.death(enemy_counter)
 
     def calculate_distance(self, vector_1, vector_2):
         return vector
