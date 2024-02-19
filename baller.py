@@ -1,8 +1,5 @@
 import pygame
 import pygame_menu
-import math
-import time
-import random
 from sprites import *
 from enemy import Enemy
 from waves import Waves
@@ -38,7 +35,7 @@ def change_difficulty(value, prev_value):
         difficulty = 2
 
     elif value == "hard":
-
+        
         difficulty = 3
 
 # Defining the main menu theme

@@ -1,7 +1,5 @@
 import pygame
 import pygame_menu
-import math
-import time
 import random
 from bullet import *
 from settings import *
