@@ -1,7 +1,7 @@
 import math
 
 
-def round_if_float(n):
+def round_if_not_float(n):
 
     if isinstance(n, float):
 
@@ -10,7 +10,5 @@ def round_if_float(n):
         if frac == 0.0:
 
             return int(int_part)
-
-   
 
     return n
