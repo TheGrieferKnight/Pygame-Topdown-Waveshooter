@@ -7,14 +7,12 @@ from bullet import *
 from settings import *
 from sprites import *
 
-# Create Pygame Window
-pygame.display.set_caption("Baller")
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
-# Loading images
+# Create Pygame Window
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 background = pygame.transform.scale(
-    pygame.image.load("background.png").convert(), (WIDTH, HEIGHT)
+    pygame.image.load("assets/enviroment/background.png").convert(), (WIDTH, HEIGHT)
 )
 
 pygame.init()
@@ -26,7 +24,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__(sprites_group, player_group)
         self.pos = pygame.Vector2(PLAYER_START_X, PLAYER_START_Y)
         self.image_1 = pygame.transform.rotozoom(
-            pygame.image.load("sprite.png").convert_alpha(), 0, PLAYER_SIZE
+            pygame.image.load("assets/player/sprite.png").convert_alpha(), 0, PLAYER_SIZE
         )
         self.image = pygame.transform.rotate(self.image_1, -90)
         self.base = self.image

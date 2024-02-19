@@ -8,7 +8,7 @@ from settings import *
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y, angle):
         super().__init__()
-        self.image = pygame.image.load("pewpew.png")
+        self.image = pygame.image.load("assets/player/bullet.png")
         self.image = pygame.transform.rotozoom(self.image, 0, BULLET_SIZE)
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)

@@ -8,7 +8,7 @@ from bullet import *
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, position):
         super().__init__(enemy_group, sprites_group)
-        self.image = pygame.image.load("enemy.png")
+        self.image = pygame.image.load("assets/enemy/enemy.png")
         self.image = pygame.transform.rotozoom(self.image, 0, ENEMY_SIZE)
         self.rect = self.image.get_rect()
         self.rect.center = position

@@ -19,12 +19,7 @@ menu_font = pygame_menu.font.FONT_COMIC_NEUE
 # Create Pygame Window
 pygame.display.set_caption("Baller")
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-clock = pygame.time.Clock()
-
-# Loading images
-background = pygame.transform.scale(
-    pygame.image.load("background.png").convert(), (WIDTH, HEIGHT)
-)
+clock = pygame.time.Clock() 
 
 difficulty = 1
 
@@ -48,7 +43,7 @@ def change_difficulty(value, prev_value):
 
 # Defining the main menu theme
 myimage = pygame_menu.baseimage.BaseImage(
-    image_path="background.png",
+    image_path="assets/enviroment/background.png",
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY,
 )
         
