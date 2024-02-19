@@ -1,6 +1,6 @@
 import cx_Freeze
 
-executables = [cx_Freeze.Executable("baller.py")]
+executables = [cx_Freeze.Executable("main.py")]
 
 cx_Freeze.setup(
     name="A bit Racey",
