@@ -1,0 +1,17 @@
+PS D:\Informatik\Pygame> & "C:/Program Files/Python312/python.exe" d:/Informatik/Pygame/main.py
+pygame 2.5.2 (SDL 2.28.3, Python 3.12.0)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+pygame-menu 4.4.3
+Traceback (most recent call last):
+  File "d:\Informatik\Pygame\main.py", line 7, in <module>
+    from main_game import *
+  File "d:\Informatik\Pygame\main_game.py", line 5, in <module>
+    from waves import Waves
+  File "d:\Informatik\Pygame\waves.py", line 4, in <module>
+    from enemy import Enemy
+  File "d:\Informatik\Pygame\enemy.py", line 9, in <module>
+    from main.py import difficulty
+  File "d:\Informatik\Pygame\main.py", line 64, in <module>
+    main_menu.add.button("Play", main_game)
+                                 ^^^^^^^^^
+NameError: name 'main_game' is not defined
