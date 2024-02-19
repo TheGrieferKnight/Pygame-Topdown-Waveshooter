@@ -16,9 +16,10 @@ menu_font = pygame_menu.font.FONT_COMIC_NEUE
 # Create Pygame Window
 pygame.display.set_caption("Baller")
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-clock = pygame.time.Clock() 
+clock = pygame.time.Clock()
 
 difficulty = 1
+
 
 def settings():
     pass
@@ -35,15 +36,16 @@ def change_difficulty(value, prev_value):
         difficulty = 2
 
     elif value == "hard":
-        
+
         difficulty = 3
+
 
 # Defining the main menu theme
 myimage = pygame_menu.baseimage.BaseImage(
     image_path="assets/enviroment/background.png",
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY,
 )
-        
+
 main_menu_theme = pygame_menu.Theme(
     title_offset=(WIDTH / 2 - 100, 0),
     title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_UNDERLINE,
@@ -59,11 +61,11 @@ main_menu = pygame_menu.Menu("Main Menu", WIDTH, HEIGHT, theme=main_menu_theme)
 
 # Defining the main menu sounds
 engine = sound.Sound()
-engine.set_sound(sound.SOUND_TYPE_CLICK_MOUSE, 'menu_click.mp3')
-engine.set_sound(sound.SOUND_TYPE_KEY_ADDITION, 'menu_click.mp3')
-engine.set_sound(sound.SOUND_TYPE_OPEN_MENU, 'menu_click.mp3')
-engine.set_sound(sound.SOUND_TYPE_WIDGET_SELECTION, 'menu_click.mp3')
-engine.set_sound(sound.SOUND_TYPE_OPEN_MENU, 'menu_click.mp3')
+engine.set_sound(sound.SOUND_TYPE_CLICK_MOUSE, "menu_click.mp3")
+engine.set_sound(sound.SOUND_TYPE_KEY_ADDITION, "menu_click.mp3")
+engine.set_sound(sound.SOUND_TYPE_OPEN_MENU, "menu_click.mp3")
+engine.set_sound(sound.SOUND_TYPE_WIDGET_SELECTION, "menu_click.mp3")
+engine.set_sound(sound.SOUND_TYPE_OPEN_MENU, "menu_click.mp3")
 
 main_menu.set_sound(engine, recursive=True)
 
