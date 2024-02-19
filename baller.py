@@ -4,11 +4,12 @@ import math
 import time
 import random
 from pygame_menu import Theme
+from pygame_menu import sound
 from settings import *
 
 pygame.init()
 pygame.font.init()
-font = pygame.font.SysFont('Comic Sans MS', 30)
+font = pygame.font.SysFont("Comic Sans MS", 30)
 menu_font = pygame_menu.font.FONT_COMIC_NEUE
 
 # Create Pygame Window
@@ -21,13 +22,7 @@ background = pygame.transform.scale(
     pygame.image.load("background.png").convert(), (WIDTH, HEIGHT)
 )
 
-# Defining the main menu theme
-myimage = pygame_menu.baseimage.BaseImage(
-    image_path="background.png",
-    drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY,
-)
 
-main_menu_theme = pygame_menu.Theme(title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_UNDERLINE, title_font=menu_font,background_color=myimage, title_background_color=(255, 0, 0), title_font_shadow=False, widget_padding=25)
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
@@ -45,8 +40,8 @@ class Player(pygame.sprite.Sprite):
         self.shot_cd = 0
         self.barrel = pygame.math.Vector2(40, -5)
         self.health = PLAYER_STARTING_HEALTH
-        self.health_display = font.render(str(self.health), True, 'red')
-        
+        self.health_display = font.render(str(self.health), True, "red")
+
     def player_rotation(self):
         self.mouse_cords = pygame.mouse.get_pos()
         self.x_diff_mouse_player = self.mouse_cords[0] - self.hitbox.centerx
@@ -156,12 +151,12 @@ class Enemy(pygame.sprite.Sprite):
         self.damage_cd = DAMAGE_CD
         self.count = 0
         self.health = 3
-        
+
     def pathing(self):
         player_vector = pygame.math.Vector2(player.hitbox.center)
         enemy_vector = pygame.math.Vector2(self.rect.center)
         distance = (player_vector - enemy_vector).magnitude()
-        
+
         if not pygame.sprite.collide_rect(self, player):
             self.direction = (player_vector - enemy_vector).normalize()
             self.timer = 0
@@ -172,29 +167,28 @@ class Enemy(pygame.sprite.Sprite):
             if self.count == 1:
                 self.timer = time.time()
                 self.damage_applied = False
-            
+
             if not self.damage_applied and (time.time() - self.timer) >= self.damage_cd:
                 player.health -= 1
                 self.count = 0
                 self.damage_applied = True
-                player.health_display = font.render(str(player.health), True, 'red')
-                
+                player.health_display = font.render(str(player.health), True, "red")
+
         self.velocity = self.direction * self.speed
         self.position += self.velocity
-        
+
         self.rect.centerx = self.position.x
         self.rect.centery = self.position.y
 
-        
     def hit(self):
         bullet_hit = pygame.sprite.spritecollide(self, bullet_sprites_group, True)
         for bullet in bullet_hit:
             self.health -= 1
-        
+
     def death(self):
         if self.health == 0 or self.health < 0:
             self.kill()
-        
+
     def update(self):
         self.pathing()
         self.hit()
@@ -203,7 +197,8 @@ class Enemy(pygame.sprite.Sprite):
     def calculate_distance(self, vector_1, vector_2):
         return vector
 
-class Waves():
+
+class Waves:
     def __init__(self):
         super().__init__()
         self.last_spawn_time = pygame.time.get_ticks()
@@ -214,18 +209,19 @@ class Waves():
         pass
 
     def spawn_enemy(self):
-            x = random.randint(0, 1920)
-            y = random.randint(0, 1080)
-            Enemy((x, y))
-        
+        x = random.randint(0, 1920)
+        y = random.randint(0, 1080)
+        Enemy((x, y))
+
     def update(self):
-        if (pygame.time.get_ticks() - self.last_spawn_time) >= self.spawn_cd: 
+        if (pygame.time.get_ticks() - self.last_spawn_time) >= self.spawn_cd:
             self.last_spawn_time = pygame.time.get_ticks()
             self.spawn_enemy()
             self.enemy_counter += 1
-            
+
             if self.enemy_counter >= 50:
                 Enemy.kill()
+
 
 difficulty = 1
 
@@ -233,6 +229,7 @@ sprites_group = pygame.sprite.Group()
 bullet_sprites_group = pygame.sprite.Group()
 enemy_group = pygame.sprite.Group()
 player_group = pygame.sprite.Group()
+
 
 def main_game():
     global waves, player
@@ -242,8 +239,7 @@ def main_game():
     # enemy2 = Enemy((-400, -400))
 
     sprites_group.add(player)
-    text_surface = font.render(str(player.health), True, 'red')
-
+    text_surface = font.render(str(player.health), True, "red")
 
     while True:
         for event in pygame.event.get():
@@ -252,7 +248,7 @@ def main_game():
                 exit()
 
         screen.blit(background, (0, 0))
-        screen.blit(player.health_display, (0,0))
+        screen.blit(player.health_display, (0, 0))
         sprites_group.draw(screen)
         sprites_group.update()
 
@@ -265,31 +261,63 @@ def main_game():
         pygame.display.update()
         clock.tick(FPS)
 
+
 def settings():
     pass
 
+
 def change_difficulty(value, prev_value):
 
-    if value == 'easy':
+    if value == "easy":
 
         difficulty = 1
 
-    elif value == 'medium':
+    elif value == "medium":
 
         difficulty = 2
 
-    elif value == 'hard':
+    elif value == "hard":
 
         difficulty = 3
+
+# Defining the main menu theme
+myimage = pygame_menu.baseimage.BaseImage(
+    image_path="background.png",
+    drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY,
+)
         
+main_menu_theme = pygame_menu.Theme(
+    title_offset=(WIDTH / 2 - 100, 0),
+    title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_UNDERLINE,
+    title_font=menu_font,
+    background_color=myimage,
+    title_background_color=(255, 0, 0),
+    title_font_shadow=False,
+    widget_padding=25,
+)
+
 # Create the main menu
-main_menu = pygame_menu.Menu('Main Menu', WIDTH, HEIGHT, theme=main_menu_theme)
+main_menu = pygame_menu.Menu("Main Menu", WIDTH, HEIGHT, theme=main_menu_theme)
+
+# Defining the main menu sounds
+engine = sound.Sound()
+engine.set_sound(sound.SOUND_TYPE_CLICK_MOUSE, 'menu_click.mp3')
+engine.set_sound(sound.SOUND_TYPE_KEY_ADDITION, 'menu_click.mp3')
+engine.set_sound(sound.SOUND_TYPE_OPEN_MENU, 'menu_click.mp3')
+engine.set_sound(sound.SOUND_TYPE_WIDGET_SELECTION, 'menu_click.mp3')
+engine.set_sound(sound.SOUND_TYPE_OPEN_MENU, 'menu_click.mp3')
+
+main_menu.set_sound(engine, recursive=True)
 
 # Adding options to the menu
-main_menu.add.button('Play', main_game)
-main_menu.add.selector('Difficulty:', [('Easy', 'easy'), ('Medium', 'medium'), ('Hard', 'hard')], onchange=change_difficulty)
-main_menu.add.button('Settings', settings) # WIP
-main_menu.add.button('Quit', pygame_menu.events.EXIT)
+main_menu.add.button("Play", main_game)
+main_menu.add.selector(
+    "Difficulty:",
+    [("Easy", "easy"), ("Medium", "medium"), ("Hard", "hard")],
+    onchange=change_difficulty,
+)
+main_menu.add.button("Settings", settings)  # WIP
+main_menu.add.button("Quit", pygame_menu.events.EXIT)
 
 
 main_menu.mainloop(screen)
