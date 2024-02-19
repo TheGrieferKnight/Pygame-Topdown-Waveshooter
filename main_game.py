@@ -1,7 +1,5 @@
 import pygame
 import pygame_menu
-import math
-import time
 import random
 from sprites import *
 from enemy import Enemy
@@ -12,7 +10,6 @@ from settings import *
 from player import *
 
 def main_game():
-    global waves, player
     waves = Waves()
     # enemy = Enemy((400, 400))
     # enemy2 = Enemy((-400, -400))
