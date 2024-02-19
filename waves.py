@@ -1,9 +1,6 @@
 import pygame
 import random
 from enemy import Enemy
-
-enemy = Enemy()
-
 class Waves:
     def __init__(self):
         super().__init__()
@@ -11,6 +8,7 @@ class Waves:
         self.spawn_cd = 3000
         self.enemy_counter = 0
         self.spawn_multiplier = 0.009
+        self.health_threshhold = 30
         
     def check_difficulty(self):
         if difficulty == 1:
@@ -35,4 +33,4 @@ class Waves:
             self.enemy_counter += 1
 
             if self.enemy_counter % self.health_threshhold == 1:
-                enemy.health += 1
+                pass
