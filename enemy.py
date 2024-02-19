@@ -6,8 +6,8 @@ from sprites import *
 from player import *
 from bullet import *
 from round_if_float import round_if_float
+from main.py import difficulty
 
-difficulty = 1
 enemy_counter = 0
 
 class Enemy(pygame.sprite.Sprite):
@@ -17,7 +17,7 @@ class Enemy(pygame.sprite.Sprite):
         self.image = pygame.transform.rotozoom(self.image, 0, ENEMY_SIZE)
         self.rect = self.image.get_rect()
         self.rect.center = position
-        self.speed = ENEMY_SPEED + enemy_counter *difficulty * 0.1 
+        self.speed = ENEMY_SPEED + enemy_counter * difficulty * 0.1 
         self.x = position[0]
         self.y = position[1]
         self.direction = pygame.math.Vector2()
@@ -27,20 +27,6 @@ class Enemy(pygame.sprite.Sprite):
         self.count = 0
         self.health = 100 + enemy_counter * difficulty * 5 
         self.damage = 10 + enemy_counter * difficulty * 0.5      
-    
-    def change_difficulty(value, prev_value):
-
-        if value == "easy":
-
-            difficulty = 1
-
-        elif value == "medium":
-
-            difficulty = 2
-
-        elif value == "hard":
-
-            difficulty = 3
     
     def pathing(self):
         player_vector = pygame.math.Vector2(player.hitbox.center)

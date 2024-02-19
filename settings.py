@@ -17,6 +17,7 @@ BULLET_LIFETIME = 750
 # Enemy Settings
 ENEMY_SIZE = 0.5
 ENEMY_SPEED = 2
+SPAWN_CD = 3000
 
 # Level 0
 SHOT_CD_0 = 20
