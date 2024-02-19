@@ -2,13 +2,11 @@ import pygame
 import pygame_menu
 import random
 from sprites import *
-from enemy import Enemy
 from waves import Waves
 from pygame_menu import Theme
 from pygame_menu import sound
 from settings import *
 from player import *
-
 
 def main_game():
     waves = Waves()

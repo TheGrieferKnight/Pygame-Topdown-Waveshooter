@@ -1,7 +1,6 @@
 import pygame
 import pygame_menu
 from sprites import *
-from enemy import Enemy as enemy
 from pygame_menu import Theme
 from pygame_menu import sound
 from settings import *
@@ -23,6 +22,20 @@ myimage = pygame_menu.baseimage.BaseImage(
     image_path="assets/enviroment/background.png",
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY,
 )
+
+def change_difficulty(value, prev_value):
+
+    if value == "easy":
+
+        difficulty = 1
+
+    elif value == "medium":
+
+        difficulty = 2
+
+    elif value == "hard":
+
+        difficulty = 3
 
 main_menu_theme = pygame_menu.Theme(
     title_offset=(WIDTH / 2 - 100, 0),
@@ -52,7 +65,7 @@ main_menu.add.button("Play", main_game)
 main_menu.add.selector(
     "Difficulty:",
     [("Easy", "easy"), ("Medium", "medium"), ("Hard", "hard")],
-    onchange=enemy.change_difficulty,
+    onchange=change_difficulty,
 )
 main_menu.add.button("Settings", settings)  # WIP
 main_menu.add.button("Quit", pygame_menu.events.EXIT)
