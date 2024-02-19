@@ -8,6 +8,7 @@ from pygame_menu import sound
 from settings import *
 from player import *
 
+
 def main_game():
     waves = Waves()
     # enemy = Enemy((400, 400))

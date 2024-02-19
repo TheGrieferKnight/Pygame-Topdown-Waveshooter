@@ -5,10 +5,11 @@ from settings import *
 from sprites import *
 from player import *
 from bullet import *
-from round_if_float import round_if_float
+from round_if_not_float import round_if_not_float
 from main.py import difficulty
 
 enemy_counter = 0
+
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, position):
@@ -17,7 +18,7 @@ class Enemy(pygame.sprite.Sprite):
         self.image = pygame.transform.rotozoom(self.image, 0, ENEMY_SIZE)
         self.rect = self.image.get_rect()
         self.rect.center = position
-        self.speed = ENEMY_SPEED + enemy_counter * difficulty * 0.1 
+        self.speed = ENEMY_SPEED + enemy_counter * difficulty * 0.1
         self.x = position[0]
         self.y = position[1]
         self.direction = pygame.math.Vector2()
@@ -25,9 +26,9 @@ class Enemy(pygame.sprite.Sprite):
         self.position = pygame.math.Vector2(position)
         self.damage_cd = DAMAGE_CD
         self.count = 0
-        self.health = 100 + enemy_counter * difficulty * 5 
-        self.damage = 10 + enemy_counter * difficulty * 0.5      
-    
+        self.health = 100 + enemy_counter * difficulty * 5
+        self.damage = 10 + enemy_counter * difficulty * 0.5
+
     def pathing(self):
         player_vector = pygame.math.Vector2(player.hitbox.center)
         enemy_vector = pygame.math.Vector2(self.rect.center)
@@ -48,7 +49,7 @@ class Enemy(pygame.sprite.Sprite):
                 player.health -= self.damage
                 self.count = 0
                 self.damage_applied = True
-                player.health = round_if_float(player.health)
+                player.health = round_if_not_float(player.health)
                 player.health_display = font.render(str(player.health), True, "red")
 
         self.velocity = self.direction * self.speed
@@ -67,7 +68,6 @@ class Enemy(pygame.sprite.Sprite):
             self.kill()
             global enemy_counter
             enemy_counter = enemy_counter1 + 1
-            
 
     def update(self):
         self.pathing()

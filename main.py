@@ -5,6 +5,7 @@ from pygame_menu import Theme
 from pygame_menu import sound
 from settings import *
 from main_game import *
+
 pygame.init()
 
 menu_font = pygame_menu.font.FONT_COMIC_NEUE
@@ -14,14 +15,17 @@ pygame.display.set_caption("Baller")
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
+
 def settings():
     pass
+
 
 # Defining the main menu theme
 myimage = pygame_menu.baseimage.BaseImage(
     image_path="assets/enviroment/background.png",
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY,
 )
+
 
 def change_difficulty(value, prev_value):
 
@@ -36,6 +40,7 @@ def change_difficulty(value, prev_value):
     elif value == "hard":
 
         difficulty = 3
+
 
 main_menu_theme = pygame_menu.Theme(
     title_offset=(WIDTH / 2 - 100, 0),
