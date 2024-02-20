@@ -28,6 +28,8 @@ myimage = pygame_menu.baseimage.BaseImage(
 
 
 def change_difficulty(value, prev_value):
+    
+    global difficulty
 
     if value == "easy":
 

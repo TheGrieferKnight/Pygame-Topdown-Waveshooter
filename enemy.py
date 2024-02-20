@@ -6,7 +6,6 @@ from sprites import *
 from player import *
 from bullet import *
 from round_if_not_float import round_if_not_float
-from main.py import difficulty
 
 enemy_counter = 0
 
