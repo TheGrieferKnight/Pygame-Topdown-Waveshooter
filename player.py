@@ -37,6 +37,7 @@ class Player(pygame.sprite.Sprite):
         self.barrel = pygame.math.Vector2(40, -5)
         self.health = PLAYER_STARTING_HEALTH
         self.health_display = font.render(str(self.health), True, "red")
+        self.num_bullets = 1
 
     def player_rotation(self):
         self.mouse_cords = pygame.mouse.get_pos()
@@ -70,17 +71,23 @@ class Player(pygame.sprite.Sprite):
 
         if keys[pygame.K_SPACE]:
             self.shoot = True
-            self.shooting()
+            self.shooting(self.num_bullets)
         else:
             self.shoot = False
 
-    def shooting(self):
+    def shooting(self, num_bullets=1):
         if self.shot_cd == 0:
             self.shot_cd = SHOT_CD_0
+            SPLIT_SHOT_ANGLE = 360 / num_bullets
             bullet_spawn_pos = self.pos + self.barrel.rotate(self.angle)
-            self.bullet = Bullet(bullet_spawn_pos[0], bullet_spawn_pos[1], self.angle)
-            bullet_sprites_group.add(self.bullet)
-            sprites_group.add(self.bullet)
+            for i in range(num_bullets):
+                bullet_angle = self.angle - (i - num_bullets // 2) * SPLIT_SHOT_ANGLE
+                self.bullet = Bullet(bullet_spawn_pos[0], bullet_spawn_pos[1], bullet_angle)
+                bullet_sprites_group.add(self.bullet)
+                sprites_group.add(self.bullet)
+
+    def upgrade_split_shot(self):
+        self.num_bullets += 1
 
     def move(self):
         self.pos += pygame.math.Vector2(self.velocity_x, self.velocity_y)
