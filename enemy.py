@@ -8,10 +8,9 @@ from bullet import *
 from round_if_not_float import round_if_not_float
 
 enemy_counter = 0
-difficulty = 10
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, position):
+    def __init__(self, position, difficulty):
         super().__init__(enemy_group, sprites_group)
         self.image = pygame.image.load("assets/enemy/enemy.png")
         self.image = pygame.transform.rotozoom(self.image, 0, ENEMY_SIZE)

@@ -9,8 +9,8 @@ from settings import *
 from player import *
 
 
-def main_game():
-    waves = Waves()
+def main_game(difficulty):
+    waves = Waves(difficulty)
     # enemy = Enemy((400, 400))
     # enemy2 = Enemy((-400, -400))
 
