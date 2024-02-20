@@ -26,7 +26,7 @@ myimage = pygame_menu.baseimage.BaseImage(
 )
 
 
-def change_difficulty(value, prev_value):
+def change_difficulty(prev_value, value):
     
     global difficulty
 
@@ -68,11 +68,11 @@ main_menu.set_sound(engine, recursive=True)
 
 # Adding options to the menu
 # main_menu.add.button("Play", main_game(difficulty))
-main_menu.add.button('Play', main_game(difficulty))
+main_menu.add.button('Play', lambda: main_game(difficulty))
 main_menu.add.selector(
     "Difficulty:",
     [("Easy", "easy"), ("Medium", "medium"), ("Hard", "hard")],
-    onchange=change_difficulty,
+    onchange=change_difficulty
 )
 main_menu.add.button("default_settings", default_settings)  # WIP
 main_menu.add.button("Quit", pygame_menu.events.EXIT)
