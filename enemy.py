@@ -1,31 +1,29 @@
 import pygame
 import math
 import time
-from settings import *
+from default_settings import *
 from sprites import *
 from player import *
 from bullet import *
 from round_if_not_float import round_if_not_float
 
-enemy_counter = 0
-
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, position, difficulty):
+    def __init__(self, position):
         super().__init__(enemy_group, sprites_group)
         self.image = pygame.image.load("assets/enemy/enemy.png")
         self.image = pygame.transform.rotozoom(self.image, 0, ENEMY_SIZE)
         self.rect = self.image.get_rect()
         self.rect.center = position
-        self.speed = ENEMY_SPEED + enemy_counter * difficulty * 0.1
         self.x = position[0]
         self.y = position[1]
         self.direction = pygame.math.Vector2()
         self.velocity = pygame.math.Vector2()
         self.position = pygame.math.Vector2(position)
-        self.damage_cd = DAMAGE_CD
+        self.damage_cd = ENEMY_BASE_SPAWN_COOLDOWN
+        self.health = ENEMY_BASE_HEALTH
+        self.damage = ENEMY_BASE_DAMAGE
+        self.speed = ENEMY_BASE_SPEED
         self.count = 0
-        self.health = 100 + enemy_counter * difficulty * 5
-        self.damage = 10 + enemy_counter * difficulty * 0.5
 
     def pathing(self):
         player_vector = pygame.math.Vector2(player.hitbox.center)
@@ -47,8 +45,6 @@ class Enemy(pygame.sprite.Sprite):
                 player.health -= self.damage
                 self.count = 0
                 self.damage_applied = True
-                player.health = round_if_not_float(player.health)
-                player.health_display = font.render(str(player.health), True, "red")
 
         self.velocity = self.direction * self.speed
         self.position += self.velocity
@@ -61,16 +57,14 @@ class Enemy(pygame.sprite.Sprite):
         for bullet in bullet_hit:
             self.health -= bullet.damage
 
-    def death(self, enemy_counter1):
+    def death(self):
         if self.health == 0 or self.health < 0:
             self.kill()
-            global enemy_counter
-            enemy_counter = enemy_counter1 + 1
 
     def update(self):
         self.pathing()
         self.hit()
-        self.death(enemy_counter)
+        self.death()
 
     def calculate_distance(self, vector_1, vector_2):
         return vector

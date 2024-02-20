@@ -14,7 +14,7 @@ cx_Freeze.setup(
                 "sprites.py",
                 "enemy.py",
                 "player.py",
-                "settings.py",
+                "default_settings.py",
                 "waves.py",
             ],
         }

@@ -3,7 +3,7 @@ import pygame_menu
 from sprites import *
 from pygame_menu import Theme
 from pygame_menu import sound
-from settings import *
+from default_settings import *
 from main_game import *
 
 pygame.init()
@@ -12,11 +12,10 @@ difficulty = 1
 
 # Create Pygame Window
 pygame.display.set_caption("Baller")
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((WIDTH, HEIGHT), display=PYGAME_DISPLAY)
 clock = pygame.time.Clock()
 
-
-def settings():
+def default_settings():
     pass
 
 
@@ -75,7 +74,7 @@ main_menu.add.selector(
     [("Easy", "easy"), ("Medium", "medium"), ("Hard", "hard")],
     onchange=change_difficulty,
 )
-main_menu.add.button("Settings", settings)  # WIP
+main_menu.add.button("default_settings", default_settings)  # WIP
 main_menu.add.button("Quit", pygame_menu.events.EXIT)
 
 main_menu.mainloop(screen)

@@ -2,22 +2,25 @@
 WIDTH = 1920
 HEIGHT = 1080
 FPS = 60
+PYGAME_DISPLAY = 1
 
-# Player settings
+# Player default_settings
 PLAYER_START_X = WIDTH / 2
 PLAYER_START_Y = HEIGHT / 2
 PLAYER_SIZE = 0.5
 PLAYER_SPEED = 3
 PLAYER_STARTING_HEALTH = 200
-DAMAGE_CD = 0.25
+DAMAGE_CD = 1
 
-# Weapon settings
+# Weapon default_settings
 BULLET_LIFETIME = 750
 
-# Enemy Settings
+# Enemy default_settings
 ENEMY_SIZE = 0.5
-ENEMY_SPEED = 2
-SPAWN_CD = 3000
+ENEMY_BASE_SPEED = 2
+ENEMY_BASE_HEALTH = 100
+ENEMY_BASE_DAMAGE = 50
+ENEMY_BASE_SPAWN_COOLDOWN = 3000
 
 # Level 0
 SHOT_CD_0 = 20
