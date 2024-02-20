@@ -3,7 +3,7 @@ import cx_Freeze
 executables = [cx_Freeze.Executable("main.py")]
 
 cx_Freeze.setup(
-    name="A bit Racey",
+    name="Pygame",
     options={
         "build_exe": {
             "packages": ["pygame"],
@@ -16,6 +16,8 @@ cx_Freeze.setup(
                 "player.py",
                 "default_settings.py",
                 "waves.py",
+                "health_bar.py",
+                "round_if_not_float.py"
             ],
         }
     },
