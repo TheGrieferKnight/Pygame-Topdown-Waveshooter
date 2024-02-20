@@ -15,7 +15,7 @@ pygame.display.set_caption("Baller")
 screen = pygame.display.set_mode((WIDTH, HEIGHT), display=PYGAME_DISPLAY)
 clock = pygame.time.Clock()
 
-def default_settings():
+def settings():
     pass
 
 
@@ -74,7 +74,7 @@ main_menu.add.selector(
     [("Easy", "easy"), ("Medium", "medium"), ("Hard", "hard")],
     onchange=change_difficulty
 )
-main_menu.add.button("default_settings", default_settings)  # WIP
+main_menu.add.button("Settings", settings)  # WIP
 main_menu.add.button("Quit", pygame_menu.events.EXIT)
 
 main_menu.mainloop(screen)
