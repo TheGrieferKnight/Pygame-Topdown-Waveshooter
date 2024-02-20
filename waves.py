@@ -1,7 +1,7 @@
 import pygame
 import random
 from settings import SPAWN_CD
-from enemy import Enemy
+from enemy import Enemy, enemy_counter, difficulty
 
 
 class Waves:
@@ -35,7 +35,6 @@ class Waves:
         )
 
     def update(self):
-        self.check_difficulty()
         if (pygame.time.get_ticks() - self.last_spawn_time) >= self.spawn_cd:
             self.last_spawn_time = pygame.time.get_ticks()
             self.spawn_enemy()
