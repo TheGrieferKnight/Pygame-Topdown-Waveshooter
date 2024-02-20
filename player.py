@@ -2,20 +2,20 @@ import pygame
 import pygame_menu
 import random
 from bullet import *
-from settings import *
+from default_settings import *
 from sprites import *
 
 clock = pygame.time.Clock()
 
 # Create Pygame Window
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((WIDTH, HEIGHT), display=PYGAME_DISPLAY)
 background = pygame.transform.scale(
     pygame.image.load("assets/enviroment/background.png").convert(), (WIDTH, HEIGHT)
 )
 
 pygame.init()
 pygame.font.init()
-font = pygame.font.SysFont("Comic Sans MS", 30)
+font = pygame.font.Font("assets\enviroment\ARCADECLASSIC.TTF", 30)
 
 
 class Player(pygame.sprite.Sprite):

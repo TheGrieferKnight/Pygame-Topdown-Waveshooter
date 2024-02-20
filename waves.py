@@ -1,38 +1,37 @@
 import pygame
 import random
-from settings import SPAWN_CD
-from enemy import Enemy, enemy_counter
-
-
+from default_settings import ENEMY_BASE_SPAWN_COOLDOWN, ENEMY_BASE_SPEED, ENEMY_BASE_HEALTH, ENEMY_BASE_DAMAGE
+from enemy import Enemy
+    
 class Waves:
     def __init__(self, difficulty):
         super().__init__()
         self.last_spawn_time = pygame.time.get_ticks()
-        self.spawn_cd = SPAWN_CD
+        self.spawn_cd = ENEMY_BASE_SPAWN_COOLDOWN
         self.enemy_counter = 0
         self.spawn_multiplier = 0.009
-        self.health_threshhold = 30
         self.difficulty = difficulty
+        self.enemy_counter = 0
 
     def check_difficulty(self):
         if difficulty == 1:
             self.spawn_multiplier = 1.0125
-            self.health_threshhold = 30
         elif difficulty == 2:
             self.spawn_multiplier = 1.025
-            self.health_threshhold = 20
         elif difficulty == 3:
             self.spawn_multiplier = 1.05
-            self.health_threshhold = 10
 
     def spawn_enemy(self):
         x = random.randint(0, 1920)
         y = random.randint(0, 1080)
-        enemy = Enemy((x, y), self.difficulty)
-        enemy.health = 100 + enemy_counter * self.spawn_multiplier * self.difficulty
-        self.spawn_cd -= enemy_counter * self.difficulty * 100
+        enemy = Enemy((x, y))
+        self.enemy_counter += 1
+        enemy.speed = ENEMY_BASE_SPEED + self.enemy_counter * self.difficulty * self.spawn_multiplier
+        enemy.damage = int(ENEMY_BASE_DAMAGE + self.enemy_counter * self.difficulty * self.spawn_multiplier)
+        enemy.health = ENEMY_BASE_HEALTH + self.enemy_counter * self.difficulty * self.spawn_multiplier
+        self.spawn_cd = ENEMY_BASE_SPAWN_COOLDOWN - self.enemy_counter * self.difficulty * 1
         print(
-            f"Spawn CD: {self.spawn_cd}; Enemy Counter: {enemy_counter}; Difficulty: {self.difficulty}"
+            f"Spawn CD: {self.spawn_cd}; Enemy Counter: {self.enemy_counter}; Difficulty: {self.difficulty}"
         )
 
     def update(self):

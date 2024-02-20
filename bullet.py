@@ -1,7 +1,7 @@
 import pygame
 import pygame_menu
 import math
-from settings import *
+from default_settings import *
 
 
 class Bullet(pygame.sprite.Sprite):
