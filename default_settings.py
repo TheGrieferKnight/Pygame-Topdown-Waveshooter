@@ -2,7 +2,7 @@
 WIDTH = 1920
 HEIGHT = 1080
 FPS = 60
-PYGAME_DISPLAY = 1
+PYGAME_DISPLAY = 0
 
 # Player default_settings
 PLAYER_START_X = WIDTH / 2

@@ -87,7 +87,7 @@ class Player(pygame.sprite.Sprite):
                 sprites_group.add(self.bullet)
 
     def upgrade_split_shot(self):
-        self.num_bullets += 1
+        player.num_bullets += 1
 
     def move(self):
         self.pos += pygame.math.Vector2(self.velocity_x, self.velocity_y)

@@ -60,7 +60,6 @@ class Enemy(pygame.sprite.Sprite):
     def death(self):
         if self.health == 0 or self.health < 0:
             self.kill()
-            player.upgrade_split_shot()
 
     def update(self):
         self.pathing()

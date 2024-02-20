@@ -63,7 +63,6 @@ engine.set_sound(sound.SOUND_TYPE_KEY_ADDITION, "assets/enviroment/menu_click.mp
 engine.set_sound(sound.SOUND_TYPE_OPEN_MENU, "assets/enviroment/menu_click.mp3")
 engine.set_sound(sound.SOUND_TYPE_WIDGET_SELECTION, "assets/enviroment/menu_click.mp3")
 engine.set_sound(sound.SOUND_TYPE_OPEN_MENU, "assets/enviroment/menu_click.mp3")
-
 main_menu.set_sound(engine, recursive=True)
 
 # Adding options to the menu
