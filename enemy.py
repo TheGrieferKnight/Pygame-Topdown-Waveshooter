@@ -8,7 +8,7 @@ from bullet import *
 from round_if_not_float import round_if_not_float
 
 enemy_counter = 0
-
+difficulty = 10
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, position):
