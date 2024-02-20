@@ -7,8 +7,8 @@ from settings import *
 from main_game import *
 
 pygame.init()
-
 menu_font = pygame_menu.font.FONT_COMIC_NEUE
+difficulty = 1
 
 # Create Pygame Window
 pygame.display.set_caption("Baller")
@@ -68,7 +68,8 @@ engine.set_sound(sound.SOUND_TYPE_OPEN_MENU, "menu_click.mp3")
 main_menu.set_sound(engine, recursive=True)
 
 # Adding options to the menu
-main_menu.add.button("Play", main_game)
+# main_menu.add.button("Play", main_game(difficulty))
+main_menu.add.button('Play', main_game(difficulty))
 main_menu.add.selector(
     "Difficulty:",
     [("Easy", "easy"), ("Medium", "medium"), ("Hard", "hard")],
@@ -76,6 +77,5 @@ main_menu.add.selector(
 )
 main_menu.add.button("Settings", settings)  # WIP
 main_menu.add.button("Quit", pygame_menu.events.EXIT)
-
 
 main_menu.mainloop(screen)

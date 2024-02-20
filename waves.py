@@ -1,17 +1,18 @@
 import pygame
 import random
 from settings import SPAWN_CD
-from enemy import Enemy, enemy_counter, difficulty
+from enemy import Enemy, enemy_counter
 
 
 class Waves:
-    def __init__(self):
+    def __init__(self, difficulty):
         super().__init__()
         self.last_spawn_time = pygame.time.get_ticks()
         self.spawn_cd = SPAWN_CD
         self.enemy_counter = 0
         self.spawn_multiplier = 0.009
         self.health_threshhold = 30
+        self.difficulty = difficulty
 
     def check_difficulty(self):
         if difficulty == 1:
@@ -27,11 +28,11 @@ class Waves:
     def spawn_enemy(self):
         x = random.randint(0, 1920)
         y = random.randint(0, 1080)
-        enemy = Enemy((x, y))
-        enemy.health = 100 + enemy_counter * self.spawn_multiplier * difficulty
-        self.spawn_cd -= enemy_counter * difficulty * 100
+        enemy = Enemy((x, y), self.difficulty)
+        enemy.health = 100 + enemy_counter * self.spawn_multiplier * self.difficulty
+        self.spawn_cd -= enemy_counter * self.difficulty * 100
         print(
-            f"Spawn CD: {self.spawn_cd}; Enemy Counter: {enemy_counter}; Difficulty: {difficulty}"
+            f"Spawn CD: {self.spawn_cd}; Enemy Counter: {enemy_counter}; Difficulty: {self.difficulty}"
         )
 
     def update(self):
