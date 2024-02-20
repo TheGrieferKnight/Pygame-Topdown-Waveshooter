@@ -22,7 +22,6 @@ def main_game(difficulty):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
-        print(difficulty)
         health_bar = HealthBar(100, 1020, 300, 40, player.health)
         screen.blit(background, (0, 0))
         sprites_group.draw(screen)
