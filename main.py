@@ -58,11 +58,11 @@ main_menu = pygame_menu.Menu("Main Menu", WIDTH, HEIGHT, theme=main_menu_theme)
 
 # Defining the main menu sounds
 engine = sound.Sound()
-engine.set_sound(sound.SOUND_TYPE_CLICK_MOUSE, "menu_click.mp3")
-engine.set_sound(sound.SOUND_TYPE_KEY_ADDITION, "menu_click.mp3")
-engine.set_sound(sound.SOUND_TYPE_OPEN_MENU, "menu_click.mp3")
-engine.set_sound(sound.SOUND_TYPE_WIDGET_SELECTION, "menu_click.mp3")
-engine.set_sound(sound.SOUND_TYPE_OPEN_MENU, "menu_click.mp3")
+engine.set_sound(sound.SOUND_TYPE_CLICK_MOUSE, "assets/enviroment/menu_click.mp3")
+engine.set_sound(sound.SOUND_TYPE_KEY_ADDITION, "assets/enviroment/menu_click.mp3")
+engine.set_sound(sound.SOUND_TYPE_OPEN_MENU, "assets/enviroment/menu_click.mp3")
+engine.set_sound(sound.SOUND_TYPE_WIDGET_SELECTION, "assets/enviroment/menu_click.mp3")
+engine.set_sound(sound.SOUND_TYPE_OPEN_MENU, "assets/enviroment/menu_click.mp3")
 
 main_menu.set_sound(engine, recursive=True)
 

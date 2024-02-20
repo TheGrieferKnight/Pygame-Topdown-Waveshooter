@@ -30,9 +30,10 @@ class Waves:
         enemy.damage = int(ENEMY_BASE_DAMAGE + self.enemy_counter * self.difficulty * self.spawn_multiplier)
         enemy.health = ENEMY_BASE_HEALTH + self.enemy_counter * self.difficulty * self.spawn_multiplier
         self.spawn_cd = ENEMY_BASE_SPAWN_COOLDOWN - self.enemy_counter * self.difficulty * 1
-        print(
-            f"Spawn CD: {self.spawn_cd}; Enemy Counter: {self.enemy_counter}; Difficulty: {self.difficulty}"
-        )
+        
+#        print(
+#            f"Spawn CD: {self.spawn_cd}; Enemy Counter: {self.enemy_counter}; Difficulty: {self.difficulty}"
+#        )
 
     def update(self):
         if (pygame.time.get_ticks() - self.last_spawn_time) >= self.spawn_cd:
