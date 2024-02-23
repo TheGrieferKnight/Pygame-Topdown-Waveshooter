@@ -38,6 +38,7 @@ class Player(pygame.sprite.Sprite):
         self.health = PLAYER_STARTING_HEALTH
         self.health_display = font.render(str(self.health), True, "red")
         self.num_bullets = 1
+        self.money = 0
 
     def player_rotation(self):
         self.mouse_cords = pygame.mouse.get_pos()
