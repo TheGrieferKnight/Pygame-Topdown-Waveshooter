@@ -1,7 +1,17 @@
 import pygame
 import random
-from default_settings import ENEMY_BASE_SPAWN_COOLDOWN, ENEMY_BASE_SPEED, ENEMY_BASE_HEALTH, ENEMY_BASE_DAMAGE, ENEMY_BASE_WORTH
+from default_settings import (
+    ENEMY_BASE_SPAWN_COOLDOWN,
+    ENEMY_BASE_SPEED,
+    ENEMY_BASE_HEALTH,
+    ENEMY_BASE_DAMAGE,
+    ENEMY_BASE_WORTH,
+    WIDTH,
+    HEIGHT,
+)
 from enemy import Enemy
+
+
 class Waves:
     def __init__(self, difficulty):
         super().__init__()
@@ -13,31 +23,51 @@ class Waves:
         self.enemy_counter = 0
 
     def check_difficulty(self):
-        if difficulty == 1:
+        if self.difficulty == 1:
             self.spawn_multiplier = 1.0125
-        elif difficulty == 2:
+        elif self.difficulty == 2:
             self.spawn_multiplier = 1.025
-        elif difficulty == 3:
+        elif self.difficulty == 3:
             self.spawn_multiplier = 1.05
 
     def spawn_enemy(self):
-        x = random.randint(0, 1920)
-        y = random.randint(0, 1080)
+
+        x = random.randint(0, WIDTH)
+
+        y = random.randint(0, HEIGHT)
+
         enemy = Enemy((x, y))
+
+        # Adjust enemy properties based on the enemy_counter
+
+        base_health = (
+            100 + 2 * self.enemy_counter
+        )  # Base health starts at 100 and increases by 2 per enemy_counter
+
+        base_speed = (
+            2 + 0.02 * self.enemy_counter
+        )  # Base speed starts at 2 and increases by 0.02 per enemy_counter
+
+        base_worth = (
+            1 + 0.1 * self.enemy_counter
+        )  # Base worth starts at 1000 and increases by 100 per enemy_counter
+
         self.enemy_counter += 1
-        enemy.speed = ENEMY_BASE_SPEED + self.enemy_counter * self.difficulty * self.spawn_multiplier
-        enemy.damage = int(ENEMY_BASE_DAMAGE + self.enemy_counter * self.difficulty * self.spawn_multiplier)
-        enemy.health = ENEMY_BASE_HEALTH + self.enemy_counter * self.difficulty * self.spawn_multiplier
-        enemy.worth = int(ENEMY_BASE_WORTH + self.enemy_counter * self.difficulty * self.spawn_multiplier)
-        self.spawn_cd = ENEMY_BASE_SPAWN_COOLDOWN - self.enemy_counter * self.difficulty * 1
-#        if self.enemy_counter % 1 == 0:
-#            upgrade_split_shot()
-        
-#        print(
-#            f"Spawn CD: {self.spawn_cd}; Enemy Counter: {self.enemy_counter}; Difficulty: {self.difficulty}"
-#        )
+
+        enemy.speed = base_speed
+
+        enemy.damage = ENEMY_BASE_DAMAGE
+
+        enemy.health = base_health
+
+        enemy.worth = base_worth
+
+        self.spawn_cd = (
+            ENEMY_BASE_SPAWN_COOLDOWN - self.enemy_counter * self.spawn_multiplier
+        )
 
     def update(self):
+        self.check_difficulty()
         if (pygame.time.get_ticks() - self.last_spawn_time) >= self.spawn_cd:
             self.last_spawn_time = pygame.time.get_ticks()
             self.spawn_enemy()

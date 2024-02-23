@@ -71,7 +71,7 @@ class Enemy(pygame.sprite.Sprite):
 
     def death(self):
         if self.health == 0 or self.health < 0:
-            player.money += 1
+            player.money += self.worth
             self.kill()
 
     def update(self):
