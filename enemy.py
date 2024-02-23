@@ -1,11 +1,22 @@
 import pygame
+
 import math
+
 import time
-from default_settings import *
-from sprites import *
+
+from default_settings import (
+    ENEMY_BASE_DAMAGE,
+    ENEMY_BASE_HEALTH,
+    ENEMY_BASE_SPAWN_COOLDOWN,
+    ENEMY_BASE_SPEED,
+    ENEMY_BASE_WORTH,
+    ENEMY_SIZE,
+)
+
+from sprites import enemy_group, sprites_group, bullet_sprites_group
+
 from player import *
-from bullet import *
-from round_if_not_float import round_if_not_float
+
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, position):
@@ -23,6 +34,7 @@ class Enemy(pygame.sprite.Sprite):
         self.health = ENEMY_BASE_HEALTH
         self.damage = ENEMY_BASE_DAMAGE
         self.speed = ENEMY_BASE_SPEED
+        self.worth = ENEMY_BASE_WORTH
         self.count = 0
 
     def pathing(self):
