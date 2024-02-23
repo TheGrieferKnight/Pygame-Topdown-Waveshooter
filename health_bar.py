@@ -1,7 +1,8 @@
 import pygame
 from default_settings import PLAYER_STARTING_HEALTH
 
-font = pygame.font.Font("assets\enviroment\ARCADECLASSIC.TTF", 30)
+font = pygame.font.Font("assets\enviroment\ARCADECLASSIC.TTF", 20)
+font_upgrades = pygame.font.Font("assets\enviroment\ARCADECLASSIC.TTF", 12)
 
 class HealthBar():
   def __init__(self, x, y, w, h, player_health):

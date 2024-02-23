@@ -25,26 +25,35 @@ def main_game(difficulty):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
-            if event.type == pygame.MOUSEBUTTONDOWN: 
-                if WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40 and player.money >= SPLIT_SHOT_PRICE_SCALED:
+                
+            if 5 <= mouse[0] <= 5+140 and 50 <= mouse[1] <= 50+40: 
+                pygame.draw.rect(background,'gray',[5,50,160,30]) 
+            else: 
+                pygame.draw.rect(background,'white',[5,50,160,30])    
+                
+            if 5 <= mouse[0] <= 5+140 and 50 <= mouse[1] <= 50+40 and player.money >= SPLIT_SHOT_PRICE_SCALED:
+                if event.type == pygame.MOUSEBUTTONDOWN: 
                     player.upgrade_split_shot()
                     player.money -= SPLIT_SHOT_PRICE_SCALED
                     SPLIT_SHOT_PRICE_SCALED *= 2
                 
-            if WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40: 
-                pygame.draw.rect(background,'gray',[WIDTH/2,HEIGHT/2,140,40]) 
-            else: 
-                pygame.draw.rect(background,'white',[WIDTH/2,HEIGHT/2,140,40])         
-        
+     
+        player_money = font.render("Money: " + str(player.money), True, "white")
+        splitshot_text = font_upgrades.render(f"Splitshot:" + str(SPLIT_SHOT_PRICE_SCALED), True, 'black')
+        # splitshot_price = font_upgrades.render(, True, "black")
         mouse = pygame.mouse.get_pos() 
         health_bar = HealthBar(100, 1020, 300, 40, player.health)
+        
         screen.blit(background, (0, 0))
         sprites_group.draw(screen)
+        
         screen.blit(health_bar.health_text, (20,1025))
-        screen.blit(player_money,(0,0))
+        screen.blit(player_money,(5,5))
+        screen.blit(splitshot_text,(10,58))
+        # screen.blit(splitshot_price,(15, 60))
+        
         health_bar.draw(screen)
         sprites_group.update()
-        player_money = font.render(str(player.money), True, "white")
         waves.update()
         player.update()
         # Hitbox / Base rectangles
