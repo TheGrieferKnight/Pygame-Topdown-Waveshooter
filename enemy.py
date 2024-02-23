@@ -30,7 +30,6 @@ class Enemy(pygame.sprite.Sprite):
         self.direction = pygame.math.Vector2()
         self.velocity = pygame.math.Vector2()
         self.position = pygame.math.Vector2(position)
-        self.damage_cd = ENEMY_BASE_SPAWN_COOLDOWN
         self.health = ENEMY_BASE_HEALTH
         self.damage = ENEMY_BASE_DAMAGE
         self.speed = ENEMY_BASE_SPEED
