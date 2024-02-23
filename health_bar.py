@@ -14,6 +14,8 @@ class HealthBar():
 
   def draw(self, surface):
     #calculate health ratio
+    if  self.player_health <= 0:
+      return
     ratio = self.player_health / PLAYER_STARTING_HEALTH
     pygame.draw.rect(surface, (0, 0, 0, 0.5), (self.x, self.y, self.w, self.h))
     pygame.draw.rect(surface, (31, 0, 54, 0.5), (self.x, self.y, self.w * ratio, self.h))

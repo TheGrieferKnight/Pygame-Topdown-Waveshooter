@@ -1,6 +1,6 @@
 import pygame
 import random
-from default_settings import ENEMY_BASE_SPAWN_COOLDOWN, ENEMY_BASE_SPEED, ENEMY_BASE_HEALTH, ENEMY_BASE_DAMAGE
+from default_settings import ENEMY_BASE_SPAWN_COOLDOWN, ENEMY_BASE_SPEED, ENEMY_BASE_HEALTH, ENEMY_BASE_DAMAGE, ENEMY_BASE_WORTH
 from enemy import Enemy
 class Waves:
     def __init__(self, difficulty):
@@ -28,6 +28,7 @@ class Waves:
         enemy.speed = ENEMY_BASE_SPEED + self.enemy_counter * self.difficulty * self.spawn_multiplier
         enemy.damage = int(ENEMY_BASE_DAMAGE + self.enemy_counter * self.difficulty * self.spawn_multiplier)
         enemy.health = ENEMY_BASE_HEALTH + self.enemy_counter * self.difficulty * self.spawn_multiplier
+        enemy.worth = int(ENEMY_BASE_WORTH + self.enemy_counter * self.difficulty * self.spawn_multiplier)
         self.spawn_cd = ENEMY_BASE_SPAWN_COOLDOWN - self.enemy_counter * self.difficulty * 1
 #        if self.enemy_counter % 1 == 0:
 #            upgrade_split_shot()

@@ -11,6 +11,7 @@ from health_bar import *
 
 def main_game(difficulty):
     waves = Waves(difficulty)
+    SPLIT_SHOT_PRICE_SCALED = SPLIT_SHOT_PRICE
     # enemy = Enemy((400, 400))
     # enemy2 = Enemy((-400, -400))
 
@@ -18,14 +19,17 @@ def main_game(difficulty):
     player_money = font.render(str(player.money), True, "white")
     
     while True:
+        if player.health <= 0:
+            return
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
             if event.type == pygame.MOUSEBUTTONDOWN: 
-                if WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40 and player.money == 10:
+                if WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40 and player.money >= SPLIT_SHOT_PRICE_SCALED:
                     player.upgrade_split_shot()
-                    player.money -= 10
+                    player.money -= SPLIT_SHOT_PRICE_SCALED
+                    SPLIT_SHOT_PRICE_SCALED *= 2
                 
             if WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40: 
                 pygame.draw.rect(background,'gray',[WIDTH/2,HEIGHT/2,140,40]) 

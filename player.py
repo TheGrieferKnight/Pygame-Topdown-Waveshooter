@@ -1,9 +1,20 @@
-import pygame
-import pygame_menu
+import math
+
 import random
-from bullet import *
+
+import pygame
+
+from pygame.locals import *
+
+from pygame.math import Vector2
+
+from pygame.sprite import Sprite, Group
+
+from bullet import Bullet
+
 from default_settings import *
-from sprites import *
+
+from sprites import sprites_group, player_group, bullet_sprites_group
 
 clock = pygame.time.Clock()
 
