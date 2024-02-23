@@ -36,6 +36,7 @@ class Enemy(pygame.sprite.Sprite):
         self.speed = ENEMY_BASE_SPEED
         self.worth = ENEMY_BASE_WORTH
         self.count = 0
+        self.hit_interval = PLAYER_HIT_INTERVAL
 
     def pathing(self):
         player_vector = pygame.math.Vector2(player.hitbox.center)
@@ -53,7 +54,7 @@ class Enemy(pygame.sprite.Sprite):
                 self.timer = time.time()
                 self.damage_applied = False
 
-            if not self.damage_applied and (time.time() - self.timer) >= self.damage_cd:
+            if (not self.damage_applied) and (time.time() - self.timer) >= self.hit_interval:
                 player.health -= self.damage
                 self.count = 0
                 self.damage_applied = True
