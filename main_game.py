@@ -15,20 +15,32 @@ def main_game(difficulty):
     # enemy2 = Enemy((-400, -400))
 
     sprites_group.add(player)
-    text_surface = font.render(str(player.health), True, "red")
-
+    player_money = font.render(str(player.money), True, "white")
+    
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+            if event.type == pygame.MOUSEBUTTONDOWN: 
+                if WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40 and player.money == 10:
+                    player.upgrade_split_shot()
+                    player.money -= 10
+                
+            if WIDTH/2 <= mouse[0] <= WIDTH/2+140 and HEIGHT/2 <= mouse[1] <= HEIGHT/2+40: 
+                pygame.draw.rect(background,'gray',[WIDTH/2,HEIGHT/2,140,40]) 
+            else: 
+                pygame.draw.rect(background,'white',[WIDTH/2,HEIGHT/2,140,40])         
+        
+        mouse = pygame.mouse.get_pos() 
         health_bar = HealthBar(100, 1020, 300, 40, player.health)
         screen.blit(background, (0, 0))
         sprites_group.draw(screen)
-        screen.blit(health_bar.text_surface, (20,1025))
+        screen.blit(health_bar.health_text, (20,1025))
+        screen.blit(player_money,(0,0))
         health_bar.draw(screen)
         sprites_group.update()
-
+        player_money = font.render(str(player.money), True, "white")
         waves.update()
         player.update()
         # Hitbox / Base rectangles
