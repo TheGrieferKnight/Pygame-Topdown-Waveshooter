@@ -5,6 +5,7 @@ from default_settings import *
 
 
 class Bullet(pygame.sprite.Sprite):
+
     def __init__(self, x, y, angle):
         super().__init__()
         self.image = pygame.image.load("assets/player/bullet.png")

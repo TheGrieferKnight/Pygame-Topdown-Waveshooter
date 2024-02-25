@@ -2,10 +2,7 @@ import pygame
 import random
 from default_settings import (
     ENEMY_BASE_SPAWN_COOLDOWN,
-    ENEMY_BASE_SPEED,
-    ENEMY_BASE_HEALTH,
     ENEMY_BASE_DAMAGE,
-    ENEMY_BASE_WORTH,
     WIDTH,
     HEIGHT,
 )
@@ -13,6 +10,7 @@ from enemy import Enemy
 
 
 class Waves:
+
     def __init__(self, difficulty):
         super().__init__()
         self.last_spawn_time = pygame.time.get_ticks()
@@ -62,9 +60,8 @@ class Waves:
 
         enemy.worth = base_worth
 
-        self.spawn_cd = (
-            ENEMY_BASE_SPAWN_COOLDOWN - self.enemy_counter * self.spawn_multiplier
-        )
+        self.spawn_cd = (ENEMY_BASE_SPAWN_COOLDOWN -
+                         self.enemy_counter * self.spawn_multiplier)
 
     def update(self):
         self.check_difficulty()
