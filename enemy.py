@@ -19,6 +19,7 @@ from player import *
 
 
 class Enemy(pygame.sprite.Sprite):
+
     def __init__(self, position):
         super().__init__(enemy_group, sprites_group)
         self.image = pygame.image.load("assets/enemy/enemy.png")
@@ -53,7 +54,8 @@ class Enemy(pygame.sprite.Sprite):
                 self.timer = time.time()
                 self.damage_applied = False
 
-            if (not self.damage_applied) and (time.time() - self.timer) >= self.hit_interval:
+            if (not self.damage_applied) and (time.time() -
+                                              self.timer) >= self.hit_interval:
                 player.health -= self.damage
                 self.count = 0
                 self.damage_applied = True
@@ -65,7 +67,8 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.centery = self.position.y
 
     def hit(self):
-        bullet_hit = pygame.sprite.spritecollide(self, bullet_sprites_group, True)
+        bullet_hit = pygame.sprite.spritecollide(self, bullet_sprites_group,
+                                                 True)
         for bullet in bullet_hit:
             self.health -= bullet.damage
 

@@ -21,8 +21,8 @@ clock = pygame.time.Clock()
 # Create Pygame Window
 screen = pygame.display.set_mode((WIDTH, HEIGHT), display=PYGAME_DISPLAY)
 background = pygame.transform.scale(
-    pygame.image.load("assets/enviroment/background.png").convert(), (WIDTH, HEIGHT)
-)
+    pygame.image.load("assets/enviroment/background.png").convert(),
+    (WIDTH, HEIGHT))
 
 pygame.init()
 pygame.font.init()
@@ -30,6 +30,7 @@ font = pygame.font.Font("assets\enviroment\ARCADECLASSIC.TTF", 30)
 
 
 class Player(pygame.sprite.Sprite):
+
     def __init__(self):
         super().__init__(sprites_group, player_group)
         self.pos = pygame.Vector2(PLAYER_START_X, PLAYER_START_Y)
@@ -58,8 +59,7 @@ class Player(pygame.sprite.Sprite):
         self.x_diff_mouse_player = self.mouse_cords[0] - self.hitbox.centerx
         self.y_diff_mouse_player = self.mouse_cords[1] - self.hitbox.centery
         self.angle = math.degrees(
-            math.atan2(self.y_diff_mouse_player, self.x_diff_mouse_player)
-        )
+            math.atan2(self.y_diff_mouse_player, self.x_diff_mouse_player))
         self.image = pygame.transform.rotate(self.base, -self.angle)
         self.rect = self.image.get_rect(center=self.hitbox.center)
 
@@ -96,8 +96,10 @@ class Player(pygame.sprite.Sprite):
             bullet_spawn_pos = self.pos + self.barrel.rotate(self.angle)
             pygame.mixer.Sound.play(self.shot_sound, fade_ms=100)
             for i in range(num_bullets):
-                bullet_angle = self.angle - (i - num_bullets // 2) * SPLIT_SHOT_ANGLE
-                self.bullet = Bullet(bullet_spawn_pos[0], bullet_spawn_pos[1], bullet_angle)
+                bullet_angle = self.angle - (
+                    i - num_bullets // 2) * SPLIT_SHOT_ANGLE
+                self.bullet = Bullet(bullet_spawn_pos[0], bullet_spawn_pos[1],
+                                     bullet_angle)
                 bullet_sprites_group.add(self.bullet)
                 sprites_group.add(self.bullet)
 
