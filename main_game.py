@@ -10,14 +10,12 @@ from player import *
 from health_bar import *
 
 def main_game(difficulty):
+
     waves = Waves(difficulty)
     SPLIT_SHOT_PRICE_SCALED = SPLIT_SHOT_PRICE
-    # enemy = Enemy((400, 400))
-    # enemy2 = Enemy((-400, -400))
-
     sprites_group.add(player)
     player_money = font.render(str(player.money), True, "white")
-    
+    mouse = pygame.mouse.get_pos() 
     while True:
         if player.health <= 0:
             return
@@ -40,8 +38,6 @@ def main_game(difficulty):
      
         player_money = font.render("Money: " + str(player.money), True, "white")
         splitshot_text = font_upgrades.render(f"Splitshot:" + str(SPLIT_SHOT_PRICE_SCALED), True, 'black')
-        # splitshot_price = font_upgrades.render(, True, "black")
-        mouse = pygame.mouse.get_pos() 
         health_bar = HealthBar(100, 1020, 300, 40, player.health)
         
         screen.blit(background, (0, 0))
@@ -50,7 +46,6 @@ def main_game(difficulty):
         screen.blit(health_bar.health_text, (20,1025))
         screen.blit(player_money,(5,5))
         screen.blit(splitshot_text,(10,58))
-        # screen.blit(splitshot_price,(15, 60))
         
         health_bar.draw(screen)
         sprites_group.update()
