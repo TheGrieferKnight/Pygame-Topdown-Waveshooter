@@ -26,7 +26,7 @@ background = pygame.transform.scale(
 
 pygame.init()
 pygame.font.init()
-font = pygame.font.Font("assets\enviroment\ARCADECLASSIC.TTF", 30)
+font = pygame.font.Font("assets/enviroment/ARCADECLASSIC.TTF", 30)
 
 
 class Player(pygame.sprite.Sprite):
@@ -51,7 +51,7 @@ class Player(pygame.sprite.Sprite):
         self.health_display = font.render(str(self.health), True, "red")
         self.num_bullets = 1
         self.money = 0
-        self.shot_sound = pygame.mixer.Sound("assets\player\shot_sound.mp3")
+        self.shot_sound = pygame.mixer.Sound("assets/player/shot_sound.mp3")
         self.shot_sound.set_volume(0.1)
 
     def player_rotation(self):
