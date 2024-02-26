@@ -20,10 +20,12 @@ def main():
     # Create the Pygame window
     pygame.display.set_caption("Baller")
     screen = pygame.display.set_mode((WIDTH, HEIGHT), display=PYGAME_DISPLAY)
+    pygame.display.toggle_fullscreen()
     clock = pygame.time.Clock()
 
     # Function to handle settings changes
     def settings():
+        print('Tag')
         pass
 
     # Function to change the difficulty level based on the selected option
@@ -37,6 +39,9 @@ def main():
             difficulty = 2
         elif value == "hard":
             difficulty = 3
+
+    def play(difficulty):
+        main_game(difficulty)
 
     # Create the main menu theme
     myimage = pygame_menu.baseimage.BaseImage(
@@ -75,7 +80,7 @@ def main():
     main_menu.set_sound(engine, recursive=True)
 
     # Add options to the menu
-    main_menu.add.button('Play', lambda: main_game(difficulty))
+    main_menu.add.button('Play', lambda: play(difficulty))
     main_menu.add.selector("Difficulty:", [("Easy", "easy"),
                                            ("Medium", "medium"),
                                            ("Hard", "hard")],
