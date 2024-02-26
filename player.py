@@ -53,7 +53,8 @@ class Player(pygame.sprite.Sprite):
         self.money = 0
         self.shot_sound = pygame.mixer.Sound("assets/player/shot_sound.mp3")
         self.shot_sound.set_volume(0.1)
-
+        self.penetrationStatus = True
+    
     def player_rotation(self):
         self.mouse_cords = pygame.mouse.get_pos()
         self.x_diff_mouse_player = self.mouse_cords[0] - self.hitbox.centerx
@@ -67,7 +68,7 @@ class Player(pygame.sprite.Sprite):
         self.velocity_x = 0
         self.velocity_y = 0
 
-        # keys = pygame.key.get_pressed()
+        keys = pygame.key.get_pressed()
 
         # if keys[pygame.K_ESCAPE]:
         #     pause = True
