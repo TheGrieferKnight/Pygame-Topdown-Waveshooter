@@ -68,7 +68,7 @@ class Enemy(pygame.sprite.Sprite):
 
     def hit(self):
         bullet_hit = pygame.sprite.spritecollide(self, bullet_sprites_group,
-                                                 True)
+                                                 player.penetrationStatus)
         for bullet in bullet_hit:
             self.health -= bullet.damage
 

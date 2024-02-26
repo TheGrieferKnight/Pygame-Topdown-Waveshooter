@@ -4,13 +4,13 @@ from sprites import *
 from pygame_menu import Theme
 from pygame_menu import sound
 from default_settings import *
-from main_game import *
+import main_game
 
 
 def main():
     # Initialize pygame
     pygame.init()
-
+    
     # Set the font for the menu
     menu_font = pygame_menu.font.FONT_COMIC_NEUE
 
@@ -18,10 +18,9 @@ def main():
     difficulty = 1
 
     # Create the Pygame window
-    pygame.display.set_caption("Baller")
-    screen = pygame.display.set_mode((WIDTH, HEIGHT), display=PYGAME_DISPLAY)
-    pygame.display.toggle_fullscreen()
-    clock = pygame.time.Clock()
+    # pygame.display.set_caption("Baller")
+    # screen = pygame.display.set_mode((1920, 1080), pygame.FULLSCREEN, display=PYGAME_DISPLAY)
+    # clock = pygame.time.Clock()
 
     # Function to handle settings changes
     def settings():
@@ -41,7 +40,7 @@ def main():
             difficulty = 3
 
     def play(difficulty):
-        main_game(difficulty)
+        main_game.main_game(difficulty)
 
     # Create the main menu theme
     myimage = pygame_menu.baseimage.BaseImage(
@@ -89,7 +88,7 @@ def main():
     main_menu.add.button("Quit", pygame_menu.events.EXIT)
 
     # Run the main menu loop
-    main_menu.mainloop(screen)
+    main_menu.mainloop(main_game.screen)
 
 
 # Run the main function

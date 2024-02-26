@@ -1,6 +1,10 @@
+import ctypes
+user32 = ctypes.windll.user32
+screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
+
 # Game setup
-WIDTH = 1920
-HEIGHT = 1080
+WIDTH = screensize[0]
+HEIGHT = screensize[1]
 FPS = 60
 PYGAME_DISPLAY = 0
 
@@ -14,7 +18,8 @@ PLAYER_HIT_INTERVAL = 1
 
 # Weapon default_settings
 BULLET_LIFETIME = 750
-SPLIT_SHOT_PRICE = 10
+SPLIT_SHOT_PRICE = ["10", "15", "30"]
+PENETRATION_PRICE = ["30","40", "50"]
 
 # Enemy default_settings
 ENEMY_SIZE = 0.5
@@ -24,7 +29,7 @@ ENEMY_BASE_DAMAGE = 50
 ENEMY_BASE_SPAWN_COOLDOWN = 3000
 ENEMY_BASE_WORTH = 1
 
-# Level 0
+# Bullet Default Settings
 SHOT_CD_0 = 20
 BULLET_SIZE = 1.4
 BULLET_SPEED = 40
