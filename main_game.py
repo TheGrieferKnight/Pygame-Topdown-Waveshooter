@@ -9,9 +9,17 @@ from default_settings import *
 from player import *
 from health_bar import *
 from enemy import Enemy
+import time
+
+def reset():
+    player.health = PLAYER_STARTING_HEALTH
+    player.money = 0
+    player.pos = pygame.Vector2(PLAYER_START_X, PLAYER_START_Y)
+    for sprite in sprites_group:
+            if isinstance(sprite, Enemy):
+                sprite.kill()
 
 def main_game(difficulty):
-    
     waves = Waves(difficulty)
     SPLIT_SHOT_PRICE_SCALED = SPLIT_SHOT_PRICE
     sprites_group.add(player)
@@ -19,13 +27,9 @@ def main_game(difficulty):
     mouse = pygame.mouse.get_pos()
     while True:
         if player.health <= 0:
-            player.health = PLAYER_STARTING_HEALTH
-            player.money = 0
-            for sprite in sprites_group:
-                   if isinstance(sprite, Enemy):
-                    sprite.kill()
+            reset()
             return
-
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -42,8 +46,6 @@ def main_game(difficulty):
                     player.upgrade_split_shot()
                     player.money -= SPLIT_SHOT_PRICE_SCALED
                     SPLIT_SHOT_PRICE_SCALED *= 2
-        
-
         player_money = font.render("Money: " + str(player.money), True,
                                    "white")
         splitshot_text = font_upgrades.render(

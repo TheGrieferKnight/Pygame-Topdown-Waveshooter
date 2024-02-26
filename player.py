@@ -67,7 +67,14 @@ class Player(pygame.sprite.Sprite):
         self.velocity_x = 0
         self.velocity_y = 0
 
-        keys = pygame.key.get_pressed()
+        # keys = pygame.key.get_pressed()
+
+        # if keys[pygame.K_ESCAPE]:
+        #     pause = True
+        #     while pause == True:
+        #         keys = pygame.key.get_pressed()
+        #         if keys[pygame.K_f]:
+        #             pause = False
 
         if keys[pygame.K_w]:
             self.velocity_y = -self.speed
