@@ -34,13 +34,14 @@ class Enemy(pygame.sprite.Sprite):
         self.health = ENEMY_BASE_HEALTH
         self.damage = ENEMY_BASE_DAMAGE
         self.speed = ENEMY_BASE_SPEED
-        self.worth = ENEMY_BASE_WORTH
+        self.worth = 10
         self.count = 0
         self.hit_interval = PLAYER_HIT_INTERVAL
+        self.last_bullet = None
 
     def pathing(self):
         player_vector = pygame.math.Vector2(player.hitbox.center)
-        enemy_vector = pygame.math.Vector2(self.rect.center)
+        enemy_vector = pygame.math.Vectbullet_hit = Vector2(self.rect.center)
         distance = (player_vector - enemy_vector).magnitude()
 
         if not pygame.sprite.collide_rect(self, player):
@@ -67,14 +68,23 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.centery = self.position.y
 
     def hit(self):
+        bullet_collisions = 0
+        
         bullet_hit = pygame.sprite.spritecollide(self, bullet_sprites_group,
                                                  player.penetrationStatus)
         for bullet in bullet_hit:
-            self.health -= bullet.damage
-
+            if bullet != self.last_bullet:
+                self.health -= bullet.damage
+                self.last_bullet = bullet
+                
     def death(self):
-        if self.health == 0 or self.health < 0:
+        chance = random.randint(0,10)
+        if self.health <= 0:
             player.money = round(player.money + self.worth, 2)
+
+            if chance == 10:
+                player.stat_points += 1
+
             self.kill()
 
     def update(self):

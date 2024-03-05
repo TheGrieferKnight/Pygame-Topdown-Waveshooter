@@ -58,10 +58,8 @@ class Waves:
 
         enemy.health = base_health
 
-        enemy.worth = base_worth
-
-        self.spawn_cd = (ENEMY_BASE_SPAWN_COOLDOWN -
-                         self.enemy_counter * self.spawn_multiplier)
+        if self.enemy_counter % 10 == 0 and self.spawn_cd > 400:
+            self.spawn_cd -= 300
 
     def update(self):
         self.check_difficulty()
