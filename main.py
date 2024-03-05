@@ -6,7 +6,6 @@ from pygame_menu import sound
 from default_settings import *
 import main_game
 
-
 def main():
     # Initialize pygame
     pygame.init()
@@ -58,6 +57,14 @@ def main():
         widget_padding=25,
     )
 
+    settings_menu = pygame_menu.Menu("Settings", WIDTH, HEIGHT, theme=main_menu_theme)
+
+    stat_menu = pygame_menu.Menu("Stats",
+                                    WIDTH,
+                                    HEIGHT,
+                                    theme=main_menu_theme)
+    stat_menu.add.button("")
+
     # Create the main menu
     main_menu = pygame_menu.Menu("Main Menu",
                                  WIDTH,
@@ -80,11 +87,13 @@ def main():
 
     # Add options to the menu
     main_menu.add.button('Play', lambda: play(difficulty))
+    main_menu.add.button(f"Stats {main_game.player.stat_points}", stat_menu)
     main_menu.add.selector("Difficulty:", [("Easy", "easy"),
                                            ("Medium", "medium"),
                                            ("Hard", "hard")],
                            onchange=change_difficulty)
-    main_menu.add.button("Settings", settings)  # WIP
+    main_menu.add.menu_link(stat_menu)
+    main_menu.add.button("Settings", settings_menu)  # WIP
     main_menu.add.button("Quit", pygame_menu.events.EXIT)
 
     # Run the main menu loop

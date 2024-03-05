@@ -1,10 +1,18 @@
-import ctypes
-user32 = ctypes.windll.user32
-screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
+import platform
+
+if platform.system() == "Windows":
+    import ctypes
+    user32 = ctypes.windll.user32
+    screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
+
+if platform.system() == "Linux":
+    import gi
+    gi.require_version('Gdk', '3.0')
+    from gi.repository import Gdk
 
 # Game setup
-WIDTH = screensize[0]
-HEIGHT = screensize[1]
+WIDTH = Gdk.Screen.width()
+HEIGHT = Gdk.Screen.height()
 FPS = 60
 PYGAME_DISPLAY = 0
 

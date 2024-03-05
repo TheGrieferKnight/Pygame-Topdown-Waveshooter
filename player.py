@@ -25,6 +25,7 @@ background = pygame.transform.scale(
     (WIDTH, HEIGHT))
 
 pygame.init()
+pygame.display.toggle_fullscreen()
 pygame.font.init()
 font = pygame.font.Font("assets/enviroment/ARCADECLASSIC.TTF", 30)
 
@@ -51,9 +52,10 @@ class Player(pygame.sprite.Sprite):
         self.health_display = font.render(str(self.health), True, "red")
         self.num_bullets = 1
         self.money = 0
-        self.shot_sound = pygame.mixer.Sound("assets/player/shot_sound.mp3")
-        self.shot_sound.set_volume(0.1)
+        # self.shot_sound = pygame.mixer.Sound("assets/player/shot_sound.mp3")
+        # self.shot_sound.set_volume(0.1)
         self.penetrationStatus = True
+        self.stat_points = 0
     
     def player_rotation(self):
         self.mouse_cords = pygame.mouse.get_pos()
@@ -102,7 +104,7 @@ class Player(pygame.sprite.Sprite):
             self.shot_cd = SHOT_CD_0
             SPLIT_SHOT_ANGLE = 360 / num_bullets
             bullet_spawn_pos = self.pos + self.barrel.rotate(self.angle)
-            pygame.mixer.Sound.play(self.shot_sound, fade_ms=100)
+            # pygame.mixer.Sound.play(self.shot_sound, fade_ms=100)
             for i in range(num_bullets):
                 bullet_angle = self.angle - (
                     i - num_bullets // 2) * SPLIT_SHOT_ANGLE
