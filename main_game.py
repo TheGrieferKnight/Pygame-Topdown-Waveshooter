@@ -18,7 +18,9 @@ def reset():
     for sprite in sprites_group:
             if isinstance(sprite, Enemy):
                 sprite.kill()
-
+            elif isinstance(sprite, Bullet):
+                sprite.kill()
+                
 def main_game(difficulty):
     w, h = pygame.display.get_surface().get_size()
     waves = Waves(difficulty)
@@ -26,7 +28,7 @@ def main_game(difficulty):
     SPLIT_SHOT_PRICE_SCALED = int(SPLIT_SHOT_PRICE[difficulty-1])
     PENETRATION_PRICE_SCALED = int(PENETRATION_PRICE[difficulty-1]) 
     
-    health_bar = HealthBar(w - w + 10, h - 50, 300, 40, player.health)    
+    health_bar = HealthBar(10, h - 50, 300, 40, player.health)    
     
     while True:
         if player.health <= 0:
@@ -62,6 +64,7 @@ def main_game(difficulty):
                         player.money -= PENETRATION_PRICE_SCALED
                         PENETRATION_PRICE_SCALED = None  
         
+
         splitshot_text = font_upgrades.render(
             f"Splitshot:" + str(SPLIT_SHOT_PRICE_SCALED), True, 'black')
         player_money = font.render('Money: ' + str(round(player.money,1)), True, "white")
@@ -73,6 +76,9 @@ def main_game(difficulty):
         screen.blit(splitshot_text, (10, 58))
         health_bar.draw(background)
 
+        for i in range(player.ammo):
+            pygame.draw.rect(screen, (255, 0, 0, 1),(w/2 - (10 * (player.max_ammo/2)) + ((20 * i) - 15), 50, 10, 40))
+        
         sprites.sprites_group.update()
         waves.update()
         player.update()
