@@ -112,6 +112,7 @@ class Player(pygame.sprite.Sprite):
             pygame.mixer.Sound.stop(self.shot_sound)
             pygame.mixer.Sound.play(self.shot_sound, fade_ms=100)
             for i in range(num_bullets):
+                # TODO: #1 Work on angle to be infront of player only
                 bullet_angle = self.angle - (
                     i - num_bullets // 2) * SPLIT_SHOT_ANGLE
                 self.bullet = Bullet(bullet_spawn_pos[0], bullet_spawn_pos[1],

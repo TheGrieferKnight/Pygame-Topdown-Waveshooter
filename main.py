@@ -60,6 +60,7 @@ def main():
 
     settings_menu = pygame_menu.Menu("Settings", WIDTH, HEIGHT, theme=main_menu_theme)
 
+    # TODO: #2 Actually add the different Stats and ways to increase them + Fix player.stat_points import
     stat_menu = pygame_menu.Menu("Stats",
                                     WIDTH,
                                     HEIGHT,
