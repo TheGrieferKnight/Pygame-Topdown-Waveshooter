@@ -19,8 +19,7 @@ class Waves:
         self.spawn_multiplier = 0.009
         self.difficulty = difficulty
         self.enemy_counter = 0
-
-    def check_difficulty(self):
+        
         if self.difficulty == 1:
             self.spawn_multiplier = 1.0125
         elif self.difficulty == 2:
@@ -62,7 +61,6 @@ class Waves:
             self.spawn_cd -= 300
 
     def update(self):
-        self.check_difficulty()
         if (pygame.time.get_ticks() - self.last_spawn_time) >= self.spawn_cd:
             self.last_spawn_time = pygame.time.get_ticks()
             self.spawn_enemy()

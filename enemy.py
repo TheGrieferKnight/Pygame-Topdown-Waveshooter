@@ -82,8 +82,8 @@ class Enemy(pygame.sprite.Sprite):
         if self.health <= 0:
             player.money = round(player.money + self.worth, 2)
 
-            if chance == 10:
-                player.stat_points += 1
+            # if chance == 10:
+            player.stat_points += 1
 
             self.kill()
 

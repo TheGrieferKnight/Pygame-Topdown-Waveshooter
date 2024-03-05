@@ -5,6 +5,7 @@ from pygame_menu import Theme
 from pygame_menu import sound
 from default_settings import *
 import main_game
+from main_game import player
 
 def main():
     # Initialize pygame
@@ -63,7 +64,7 @@ def main():
                                     WIDTH,
                                     HEIGHT,
                                     theme=main_menu_theme)
-    stat_menu.add.button("")
+    stat_menu.add.button("Bullet Damage")
 
     # Create the main menu
     main_menu = pygame_menu.Menu("Main Menu",
@@ -87,7 +88,7 @@ def main():
 
     # Add options to the menu
     main_menu.add.button('Play', lambda: play(difficulty))
-    main_menu.add.button(f"Stats {main_game.player.stat_points}", stat_menu)
+    main_menu.add.button(f"Stats {player.stat_points}", stat_menu)
     main_menu.add.selector("Difficulty:", [("Easy", "easy"),
                                            ("Medium", "medium"),
                                            ("Hard", "hard")],
