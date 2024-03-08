@@ -6,8 +6,11 @@ from player import *
 from health_bar import *
 from enemy import Enemy
 
+# TODO: #5 Splitshot upgrade and Penetration have to reset after every run as well
 def reset():
     player.health = PLAYER_STARTING_HEALTH
+    player.penetrationStatus = True
+    player.num_bullets = 1
     player.money = 0
     player.pos = pygame.Vector2(PLAYER_START_X, PLAYER_START_Y)
     for sprite in sprites_group:
