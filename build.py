@@ -3,10 +3,10 @@
 # requiring the Python interpreter to be installed.
 import cx_Freeze
 
-executables = [cx_Freeze.Executable("main.py")]
+executables = [cx_Freeze.Executable("SimpleWaveshooter.py")]
 
 cx_Freeze.setup(
-    name="Pygame",
+    name="SimpleWaveshooter",
     options={
         "build_exe": {
             "packages": ["pygame"],

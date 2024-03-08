@@ -29,7 +29,6 @@ pygame.display.toggle_fullscreen()
 pygame.font.init()
 font = pygame.font.Font("assets/enviroment/ARCADECLASSIC.TTF", 30)
 
-
 class Player(pygame.sprite.Sprite):
     """
     Player class for a Pygame-based wave-shooting game.
