@@ -12,7 +12,7 @@ from pygame.sprite import Sprite, Group
 
 from bullet import Bullet
 
-from default_settings import *
+from default_settings import WIDTH, HEIGHT, PLAYER_START_X, PLAYER_START_Y, PLAYER_SPEED, PLAYER_BASE_AMMOCOUNT, PLAYER_STARTING_HEALTH, PYGAME_DISPLAY, PLAYER_SIZE, SHOT_CD_0
 
 from sprites import sprites_group, player_group, bullet_sprites_group
 
@@ -31,7 +31,45 @@ font = pygame.font.Font("assets/enviroment/ARCADECLASSIC.TTF", 30)
 
 
 class Player(pygame.sprite.Sprite):
+    """
+    Player class for a Pygame-based wave-shooting game.
 
+    This class represents the player character and includes attributes and methods for player movement, shooting, upgrades, and health management.
+
+    Attributes:
+        pos (pygame.Vector2): The position vector of the player.
+        image_1 (pygame.Surface): Original image of the player.
+        image (pygame.Surface): Rotated image of the player.
+        base (pygame.Surface): Base image of the player.
+        hitbox (pygame.Rect): Rectangle representing the player's hitbox.
+        rect (pygame.Rect): Rectangle representing the player's position on the screen.
+        speed (int): Movement speed of the player.
+        shoot (bool): Flag indicating whether the player is shooting.
+        shot_cd (int): Cooldown between shots.
+        barrel (pygame.math.Vector2): Vector representing the barrel position for shooting.
+        health (int): Current health points of the player.
+        health_display (pygame.Surface): Rendered text displaying the player's health.
+        num_bullets (int): Number of bullets shot per firing instance.
+        money (float): Player's money or currency.
+        shot_sound (pygame.mixer.Sound): Sound effect for player shots.
+        penetrationStatus (bool): Flag indicating whether player bullets penetrate targets.
+        max_ammo (int): Maximum ammo capacity.
+        ammo (int): Current ammo count.
+        timer (int): Timer for various cooldowns and actions.
+        stat_points (int): Points for player statistics or upgrades.
+
+    Methods:
+        player_rotation(self): Rotates the player's image based on the mouse position.
+        player_input(self): Handles player input for movement and shooting.
+        shooting(self, num_bullets=1): Initiates the shooting mechanism for the player.
+        reload(self): Reloads the player's ammo after a cooldown.
+        upgrade_split_shot(self): Upgrades the player's split-shot ability.
+        move(self): Updates the player's position based on velocity.
+        death(self): Handles player death conditions.
+        update(self): Updates player actions and conditions.
+
+    Note: Ensure that the required classes and variables are properly defined before creating an instance of this class.
+    """
     def __init__(self):
         super().__init__(sprites_group, player_group)
         self.pos = pygame.Vector2(PLAYER_START_X, PLAYER_START_Y)
@@ -59,6 +97,7 @@ class Player(pygame.sprite.Sprite):
         self.ammo = PLAYER_BASE_AMMOCOUNT
         self.timer = pygame.time.get_ticks()
         self.stat_points = 0
+        self.bullet = None
     
     def player_rotation(self):
         self.mouse_cords = pygame.mouse.get_pos()
