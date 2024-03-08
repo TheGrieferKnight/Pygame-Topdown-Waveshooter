@@ -37,6 +37,7 @@ class Waves:
         self.spawn_multiplier = 0.009
         self.difficulty = difficulty
         
+        # Adjusted spawn_multiplier based on difficulty for more granular control
         if self.difficulty == 1:
             self.spawn_multiplier = 1.0125
         elif self.difficulty == 2:
@@ -52,10 +53,10 @@ class Waves:
         y = random.randint(0, HEIGHT)
         enemy = Enemy((x, y))
 
-        # Adjust enemy properties based on the enemy_counter
-        base_health = 100 + 2 * self.enemy_counter  # Base health increases by 2 per enemy_counter
-        base_speed = 2 + 0.02 * self.enemy_counter  # Base speed increases by 0.02 per enemy_counter
-        # base_worth = 1 + 0.1 * self.enemy_counter   # Base worth increases by 0.1 per enemy_counter
+        # Adjust enemy properties based on the enemy_counter and difficulty
+        base_health = 100 + int(2 * self.spawn_multiplier * self.enemy_counter)
+        base_speed = 2 + (0.02 * self.spawn_multiplier * self.enemy_counter)
+        base_worth = 1 + (0.1 * self.spawn_multiplier * self.enemy_counter)
 
         self.enemy_counter += 1
 

@@ -1,16 +1,17 @@
+# `import time` is importing the time module in Python. This module provides various time-related
+# functions, including functions for getting the current time, pausing execution, and measuring time
+# intervals. In the provided code snippet, the `time` module is used for timing the enemy's attack
+# intervals in the `pathing` method of the `Enemy` class.
+import time
 import pygame
 
-import math
-
-import time
 
 from default_settings import (
     ENEMY_BASE_DAMAGE,
     ENEMY_BASE_HEALTH,
-    ENEMY_BASE_SPAWN_COOLDOWN,
     ENEMY_BASE_SPEED,
-    ENEMY_BASE_WORTH,
     ENEMY_SIZE,
+    PLAYER_HIT_INTERVAL
 )
 
 from sprites import enemy_group, sprites_group, bullet_sprites_group
