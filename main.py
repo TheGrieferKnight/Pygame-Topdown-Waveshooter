@@ -1,46 +1,39 @@
 import pygame
 import pygame_menu
-from sprites import *
-from pygame_menu import Theme
 from pygame_menu import sound
-from default_settings import *
+from default_settings import WIDTH, HEIGHT
 import main_game
 from main_game import player
 
+
 def main():
-    # Initialize pygame
-    pygame.init()
-    
+    """
+    The `main()` function sets up a main menu with options for playing the game, adjusting difficulty,
+    viewing stats, accessing settings, and quitting the game.
+    """
+
     # Set the font for the menu
     menu_font = pygame_menu.font.FONT_COMIC_NEUE
 
     # Initialize the difficulty level
-    difficulty = 1
+    difficulty = [1]
 
-    # Create the Pygame window
-    # pygame.display.set_caption("Baller")
-    # screen = pygame.display.set_mode((1920, 1080), pygame.FULLSCREEN, display=PYGAME_DISPLAY)
-    # clock = pygame.time.Clock()
+    def change_difficulty(_, value, difficulty_var):
+        """
+        Callback function to change the difficulty level based on the selected option.
 
-    # Function to handle settings changes
-    def settings():
-        print('Tag')
-        pass
+        Parameters:
+        - _: Placeholder for the first argument (not used).
+        - value (str): The selected difficulty option ("easy", "medium", or "hard").
+        - difficulty_var (list): A mutable list containing the current difficulty level.
 
-    # Function to change the difficulty level based on the selected option
-    def change_difficulty(prev_value, value):
-        global difficulty
+        Returns:
+        None
+        """
+        options_mapping = {"easy": 1, "medium": 2, "hard": 3}
 
         # Set the difficulty level based on the selected option
-        if value == "easy":
-            difficulty = 1
-        elif value == "medium":
-            difficulty = 2
-        elif value == "hard":
-            difficulty = 3
-
-    def play(difficulty):
-        main_game.main_game(difficulty)
+        difficulty_var[0] = options_mapping.get(value, 1)
 
     # Create the main menu theme
     myimage = pygame_menu.baseimage.BaseImage(
@@ -58,13 +51,13 @@ def main():
         widget_padding=25,
     )
 
-    settings_menu = pygame_menu.Menu("Settings", WIDTH, HEIGHT, theme=main_menu_theme)
+    settings_menu = pygame_menu.Menu("Settings",
+                                     WIDTH,
+                                     HEIGHT,
+                                     theme=main_menu_theme)
 
     # TODO: #2 Actually add the different Stats and ways to increase them + Fix player.stat_points import
-    stat_menu = pygame_menu.Menu("Stats",
-                                    WIDTH,
-                                    HEIGHT,
-                                    theme=main_menu_theme)
+    stat_menu = pygame_menu.Menu("Stats", WIDTH, HEIGHT, theme=main_menu_theme)
     stat_menu.add.button("Bullet Damage")
 
     # Create the main menu
@@ -88,12 +81,12 @@ def main():
     main_menu.set_sound(engine, recursive=True)
 
     # Add options to the menu
-    main_menu.add.button('Play', lambda: play(difficulty))
+    main_menu.add.button('Play', lambda: main_game.main_game(difficulty))
     main_menu.add.button(f"Stats {player.stat_points}", stat_menu)
-    main_menu.add.selector("Difficulty:", [("Easy", "easy"),
-                                           ("Medium", "medium"),
-                                           ("Hard", "hard")],
-                           onchange=change_difficulty)
+    main_menu.add.selector(
+        "Difficulty:", [("Easy", "easy"), ("Medium", "medium"),
+                        ("Hard", "hard")],
+        onchange=lambda _, value: change_difficulty(_, value, difficulty))
     main_menu.add.menu_link(stat_menu)
     main_menu.add.button("Settings", settings_menu)  # WIP
     main_menu.add.button("Quit", pygame_menu.events.EXIT)

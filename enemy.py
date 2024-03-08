@@ -19,7 +19,36 @@ from player import *
 
 
 class Enemy(pygame.sprite.Sprite):
+    """
+    This module defines the Enemy class for a game, which is a subclass of pygame.sprite.Sprite.
+    The Enemy class represents an enemy character in the game, with attributes such as health, damage, speed,
+    and a method for pathing towards the player. It also includes methods for handling hits from bullets,
+    death conditions, and updating the enemy's state.
 
+    Attributes:
+        image (pygame.Surface): The image of the enemy.
+        rect (pygame.Rect): The rectangular area of the enemy.
+        x (int): The x-coordinate of the enemy's position.
+        y (int): The y-coordinate of the enemy's position.
+        direction (pygame.math.Vector2): The direction the enemy is moving towards.
+        velocity (pygame.math.Vector2): The speed and direction of the enemy's movement.
+        position (pygame.math.Vector2): The current position of the enemy.
+        health (int): The health of the enemy.
+        damage (int): The damage the enemy can inflict on the player.
+        speed (int): The speed at which the enemy moves.
+        worth (int): The amount of money the player earns upon defeating the enemy.
+        count (int): A counter used for timing the enemy's attack.
+        hit_interval (float): The interval between each hit the enemy can apply to the player.
+        last_bullet (pygame.sprite.Sprite): The last bullet that hit the enemy.
+
+    Methods:
+        __init__(self, position): Initializes the enemy with a given position.
+        pathing(self): Calculates the enemy's path towards the player.
+        hit(self): Handles the enemy being hit by a bullet.
+        death(self): Handles the enemy's death, including updating the player's money and stats.
+        update(self): Updates the enemy's state, including pathing, handling hits, and checking for death.
+        calculate_distance(self, vector_1, vector_2): Calculates the distance between two vectors.
+    """
     def __init__(self, position):
         super().__init__(enemy_group, sprites_group)
         self.image = pygame.image.load("assets/enemy/enemy.png")
@@ -40,6 +69,11 @@ class Enemy(pygame.sprite.Sprite):
         self.last_bullet = None
 
     def pathing(self):
+        """
+        This function calculates the distance between the player and enemy, updates the enemy's
+        direction and position based on the player's location, and applies damage to the player if they
+        collide.
+        """
         player_vector = pygame.math.Vector2(player.hitbox.center)
         enemy_vector = pygame.math.Vectbullet_hit = Vector2(self.rect.center)
         distance = (player_vector - enemy_vector).magnitude()
@@ -68,6 +102,10 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.centery = self.position.y
 
     def hit(self):
+        """
+        This function checks for collisions between the player object and bullets, deducting health based
+        on the damage of the bullets.
+        """
         bullet_collisions = 0
         
         bullet_hit = pygame.sprite.spritecollide(self, bullet_sprites_group,
@@ -78,12 +116,16 @@ class Enemy(pygame.sprite.Sprite):
                 self.last_bullet = bullet
                 
     def death(self):
+        """
+        This function checks if a character's health is zero or less, and if so, adds their worth to the
+        player's money and potentially increases the player's stat points.
+        """
         chance = random.randint(0,10)
         if self.health <= 0:
             player.money = round(player.money + self.worth, 2)
 
-            # if chance == 10:
-            player.stat_points += 1
+            if chance == 10:
+                player.stat_points += 1
 
             self.kill()
 
