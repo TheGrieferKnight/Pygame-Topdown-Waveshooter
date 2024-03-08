@@ -4,7 +4,7 @@ This repository houses a basic waveshooter game developed as part of my IT class
 
 ## About the Game
 
-Simple Waveshooter is a straightforward shooting game where players face increasingly challenging waves of enemies. It's designed with simplicity in mind, offering a casual gaming experience.
+Space Surge is a straightforward shooting game where players face increasingly challenging waves of enemies. It's designed with simplicity in mind, offering a casual gaming experience.
 
 ## Features
 
