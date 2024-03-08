@@ -50,6 +50,7 @@ def main():
         widget_padding=25,
     )
 
+<<<<<<< HEAD
     # # settings_menu = pygame_menu.Menu("Settings",
     # #                                  WIDTH,
     # #                                  HEIGHT,
@@ -58,6 +59,12 @@ def main():
     # # # TODO: #2 Actually add the different Stats and ways to increase them + Fix player.stat_points import
     # # stat_menu = pygame_menu.Menu("Stats", WIDTH, HEIGHT, theme=main_menu_theme)
     # # stat_menu.add.button("Bullet Damage")
+=======
+    settings_menu = pygame_menu.Menu("Settings",
+                                     WIDTH,
+                                     HEIGHT,
+                                     theme=main_menu_theme)
+>>>>>>> fa3fff23240bf53f4093b8ace8f2c1093038cba5
 
     # Create the main menu
     main_menu = pygame_menu.Menu("Main Menu",
@@ -81,13 +88,19 @@ def main():
 
     # Add options to the menu
     main_menu.add.button('Play', lambda: main_game.main_game(difficulty))
+<<<<<<< HEAD
     # # main_menu.add.button(f"Stats {player.stat_points}", stat_menu)
+=======
+>>>>>>> fa3fff23240bf53f4093b8ace8f2c1093038cba5
     main_menu.add.selector(
         "Difficulty:", [("Easy", "easy"), ("Medium", "medium"),
                         ("Hard", "hard")],
         onchange=lambda _, value: change_difficulty(_, value, difficulty))
+<<<<<<< HEAD
     # # main_menu.add.menu_link(stat_menu)
     # # main_menu.add.button("Settings", settings_menu)  # WIP
+=======
+>>>>>>> fa3fff23240bf53f4093b8ace8f2c1093038cba5
     main_menu.add.button("Quit", pygame_menu.events.EXIT)
 
     # Run the main menu loop
