@@ -2,12 +2,12 @@ import pygame_menu
 from pygame_menu import sound
 from default_settings import WIDTH, HEIGHT
 import main_game
-from main_game import player
 
 
 def main():
     """
-    The `main()` function sets up a main menu with options for playing the game, adjusting difficulty,
+    The `main()` function sets up a main menu with options for playing the
+    game, adjusting difficulty,
     viewing stats, accessing settings, and quitting the game.
     """
 
@@ -19,12 +19,15 @@ def main():
 
     def change_difficulty(_, value, difficulty_var):
         """
-        Callback function to change the difficulty level based on the selected option.
+        Callback function to change the difficulty level based on the selected
+        option.
 
         Parameters:
         - _: Placeholder for the first argument (not used).
-        - value (str): The selected difficulty option ("easy", "medium", or "hard").
-        - difficulty_var (list): A mutable list containing the current difficulty level.
+        - value (str): The selected difficulty option ("easy", "medium", or
+            "hard").
+        - difficulty_var (list): A mutable list containing the current
+            difficulty level.
 
         Returns:
         None
@@ -55,8 +58,8 @@ def main():
     # #                                  HEIGHT,
     # #                                  theme=main_menu_theme)
 
-    # # # TODO: #2 Actually add the different Stats and ways to increase them + Fix player.stat_points import
-    # # stat_menu = pygame_menu.Menu("Stats", WIDTH, HEIGHT, theme=main_menu_theme)
+    # # stat_menu = pygame_menu.Menu("Stats", WIDTH, HEIGHT,
+    #                                theme=main_menu_theme)
     # # stat_menu.add.button("Bullet Damage")
 
     # Create the main menu
