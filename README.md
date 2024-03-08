@@ -1,2 +1,2 @@
-# Simple Waveshooter for my IT class
-This is a simple waveshooter I'm making as a project for my IT class :D
+# Development branch of my Pygame Waveshooter
+Here you can find the newest code related to my Game. Keep in mind, everything is subject to change.
