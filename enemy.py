@@ -68,6 +68,27 @@ class Enemy(pygame.sprite.Sprite):
         self.count = 0
         self.hit_interval = PLAYER_HIT_INTERVAL
         self.last_bullet = None
+        self.rotation_angle = 0
+        self.rotated_images = []
+        self.pre_render_images()
+
+    def pre_render_images(self):
+        """
+        Pre-renders rotated images and stores them in a list.
+        """
+        angles = range(0, 360, 5)
+        for angle in angles:
+            rotated_image = pygame.transform.rotozoom(self.image, -angle, 1)
+            self.rotated_images.append(rotated_image)
+
+    def rotate(self):
+        """
+        Continuously updates the rotation angle for the enemy.
+        """
+        self.rotation_angle += 1  # You can adjust the rotation speed here
+        rotated_index = int(self.rotation_angle) % len(self.rotated_images)
+        self.image = self.rotated_images[rotated_index]
+        self.rect = self.image.get_rect(center=self.rect.center)
 
     def pathing(self):
         """
@@ -101,6 +122,8 @@ class Enemy(pygame.sprite.Sprite):
 
         self.rect.centerx = self.position.x
         self.rect.centery = self.position.y
+        
+        self.rotate()
 
     def hit(self):
         """
