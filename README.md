@@ -1,5 +1,3 @@
-Absolutely, I've adjusted the tone to provide a more straightforward and minimalistic overview:
-
 # Simple Waveshooter
 
 This repository houses a basic waveshooter game developed as part of my IT class project.

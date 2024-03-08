@@ -1,15 +1,10 @@
 import pygame
-import pygame_menu
-import random
 import sprites
 from waves import Waves
-from pygame_menu import Theme
-from pygame_menu import sound
-from default_settings import *
+from default_settings import PLAYER_START_X, PLAYER_START_Y, PENETRATION_PRICE, SPLIT_SHOT_PRICE, PLAYER_STARTING_HEALTH, FPS
 from player import *
 from health_bar import *
 from enemy import Enemy
-import time
 
 def reset():
     player.health = PLAYER_STARTING_HEALTH
@@ -38,6 +33,12 @@ def main_game(difficulty):
 
     """
     
+    #Setup Background Music
+    pygame.mixer.pre_init(44100, -16, 2, 1024)
+    pygame.mixer.init()
+    pygame.mixer.music.load("assets/enviroment/Underscores Vol 1. (Sci Fi - Space).mp3")
+    pygame.mixer.music.play()
+    
     # Convert difficulty from string to integer
     difficulty = int(difficulty[0])
     
@@ -54,9 +55,6 @@ def main_game(difficulty):
     SPLIT_SHOT_PRICE_SCALED = int(SPLIT_SHOT_PRICE[difficulty - 1])
     PENETRATION_PRICE_SCALED = int(PENETRATION_PRICE[difficulty - 1]) 
     
-    # Initialize health bar
-    health_bar = HealthBar(10, h - 50, 300, 40, player.health)    
-    
     while True:
         # Check for player defeat
         if player.health <= 0:
@@ -72,9 +70,9 @@ def main_game(difficulty):
                 
             # Upgrade Split Shot button interaction
             if 5 <= mouse[0] <= 5 + 140 and 50 <= mouse[1] <= 50 + 40:
-                pygame.draw.rect(background, 'gray', [5, 50, 160, 30])
+                pygame.draw.rect(background, 'gray', [5, 50, 200, 30])
             else:
-                pygame.draw.rect(background, 'white', [5, 50, 160, 30])
+                pygame.draw.rect(background, 'white', [5, 50, 200, 30])
             
             if 5 <= mouse[0] <= 5 + 140 and 50 <= mouse[1] <= 50 + 40 and player.money >= SPLIT_SHOT_PRICE_SCALED:
                 if event.type == pygame.MOUSEBUTTONDOWN:
@@ -84,9 +82,9 @@ def main_game(difficulty):
             
             # Upgrade Penetration button interaction
             if 5 <= mouse[0] <= 5 + 160 and 90 <= mouse[1] <= 90 + 30:
-                pygame.draw.rect(background, 'gray', [5, 90, 160, 30])
+                pygame.draw.rect(background, 'gray', [5, 90, 200, 30])
             else:
-                pygame.draw.rect(background, 'white', [5, 90, 160, 30])
+                pygame.draw.rect(background, 'white', [5, 90, 200, 30])
             
             if PENETRATION_PRICE_SCALED != None:
                 if 5 <= mouse[0] <= 5 + 160 and 90 <= mouse[1] <= 90 + 30 and player.money >= PENETRATION_PRICE_SCALED:
@@ -94,9 +92,13 @@ def main_game(difficulty):
                         player.penetrationStatus = False
                         player.money -= PENETRATION_PRICE_SCALED
                         PENETRATION_PRICE_SCALED = None  
+                        
+        # Initialize health bar
+        health_bar = HealthBar(10, h - 50, 300, 40, player.health)    
         
         # Render upgrade texts
-        splitshot_text = font_upgrades.render(f"Splitshot: {SPLIT_SHOT_PRICE_SCALED}", True, 'black')
+        splitshot_text = font_upgrades.render(f"Splitshot:{SPLIT_SHOT_PRICE_SCALED}", True, 'black')
+        penetration_text = font_upgrades.render(f"Penetration:{PENETRATION_PRICE_SCALED}", True, 'black')
         player_money = font.render('Money: ' + str(round(player.money, 1)), True, "white")
         
         # Draw game elements
@@ -105,6 +107,7 @@ def main_game(difficulty):
         screen.blit(health_bar.health_text, (20, h - 37))
         screen.blit(player_money, (5, 5))
         screen.blit(splitshot_text, (10, 58))
+        screen.blit(penetration_text, (10, 98))
         health_bar.draw(background)
         
         # Draw ammo indicators
