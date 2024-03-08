@@ -6,13 +6,9 @@ from player import *
 from health_bar import *
 from enemy import Enemy
 
-# TODO: #5 Splitshot upgrade and Penetration have to reset after every run as well
 def reset():
-    player.health = PLAYER_STARTING_HEALTH
     player.penetrationStatus = True
     player.num_bullets = 1
-
-def reset():
     player.health = PLAYER_STARTING_HEALTH
     player.money = 0
     player.pos = pygame.Vector2(PLAYER_START_X, PLAYER_START_Y)
@@ -75,25 +71,25 @@ def main_game(difficulty):
                 exit()
                 
             # Upgrade Split Shot button interaction
-            if 5 <= mouse[0] <= 5 + 140 and 50 <= mouse[1] <= 50 + 40:
+            if 5 <= mouse[0] <= 5 + 200 and 50 <= mouse[1] <= 50 + 30:
                 pygame.draw.rect(background, 'gray', [5, 50, 200, 30])
             else:
                 pygame.draw.rect(background, 'white', [5, 50, 200, 30])
             
-            if 5 <= mouse[0] <= 5 + 140 and 50 <= mouse[1] <= 50 + 40 and player.money >= SPLIT_SHOT_PRICE_SCALED:
+            if 5 <= mouse[0] <= 5 + 200 and 50 <= mouse[1] <= 50 + 30 and player.money >= SPLIT_SHOT_PRICE_SCALED:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     player.upgrade_split_shot()
                     player.money -= SPLIT_SHOT_PRICE_SCALED
                     SPLIT_SHOT_PRICE_SCALED *= 2
             
             # Upgrade Penetration button interaction
-            if 5 <= mouse[0] <= 5 + 160 and 90 <= mouse[1] <= 90 + 30:
+            if 5 <= mouse[0] <= 5 + 200 and 90 <= mouse[1] <= 90 + 30:
                 pygame.draw.rect(background, 'gray', [5, 90, 200, 30])
             else:
                 pygame.draw.rect(background, 'white', [5, 90, 200, 30])
             
             if PENETRATION_PRICE_SCALED != None:
-                if 5 <= mouse[0] <= 5 + 160 and 90 <= mouse[1] <= 90 + 30 and player.money >= PENETRATION_PRICE_SCALED:
+                if 5 <= mouse[0] <= 5 + 200 and 90 <= mouse[1] <= 90 + 30 and player.money >= PENETRATION_PRICE_SCALED:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         player.penetrationStatus = False
                         player.money -= PENETRATION_PRICE_SCALED
