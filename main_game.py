@@ -1,10 +1,11 @@
 import pygame
+import os
 from sprites import sprites_group
 from waves import Waves
 from default_settings import (PLAYER_START_X, PLAYER_START_Y,
                               PENETRATION_PRICE, SPLIT_SHOT_PRICE,
                               PLAYER_STARTING_HEALTH, FPS)
-from player import player, Bullet, background, screen, clock
+from player import player, Bullet, background, screen, clock, player_statss
 from health_bar import HealthBar, font_upgrades, font
 from enemy import Enemy
 
@@ -20,6 +21,30 @@ def reset():
             sprite.kill()
         elif isinstance(sprite, Bullet):
             sprite.kill()
+    player_statss.reset()
+
+
+def create_music_queue(folder_path):
+    pygame.mixer.pre_init(44100, -16, 2, 1024)
+    pygame.mixer.init()
+
+    pygame.mixer.music.load("assets/enviroment/background-music/Event Horizon.mp3")
+
+    file_names = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
+
+    if not file_names:
+        print("No files found in the folder.")
+        return
+
+    for file_name in file_names:
+        file_path = os.path.join(folder_path, file_name)
+        pygame.mixer.music.queue(file_path)
+
+    pygame.mixer.music.set_endevent(pygame.USEREVENT)
+
+    pygame.mixer.music.set_volume(0.25)
+
+    pygame.mixer.music.play()
 
 
 def main_game(difficulty):
@@ -34,14 +59,18 @@ def main_game(difficulty):
     Note: Ensure that the required classes and variables are properly defined
     before calling this function.
     """
+
+    player.max_health = player_statss.max_health
+    player.bullet_damage = player_statss.bullet_damage
+    player.speed = player_statss.speed
+
     # Setup Background Music
     pygame.mixer.pre_init(44100, -16, 2, 1024)
     pygame.mixer.init()
-    pygame.mixer.music.load("assets/enviroment/Underscores Vol 1. " +
-                            "(Sci Fi - Space).mp3")
-    pygame.mixer.music.play()
 
-    # Convert difficulty from string to integer
+    pygame.mixer.music.load("assets/enviroment/ost.mp3")
+
+    # Convert difficulty from list to integer
     difficulty = int(difficulty[0])
 
     # Get screen dimensions
@@ -60,11 +89,15 @@ def main_game(difficulty):
     while True:
         # Check for player defeat
         if player.health <= 0:
+            pygame.mixer.music.fadeout(1000)
             reset()
             return
 
         for event in pygame.event.get():
             mouse = pygame.mouse.get_pos()
+
+            if event.type == pygame.USEREVENT:  # End event triggered
+                pygame.mixer.music.queue(pygame.mixer.music.get_queue())
 
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -98,7 +131,8 @@ def main_game(difficulty):
                         PENETRATION_PRICE_SCALED = None
 
         # Initialize health bar
-        health_bar = HealthBar(10, h - 50, 300, 40, player.health)
+        health_bar = HealthBar(10, h - 50, 300, 40, player.health,
+                               player.max_health)
 
         # Render upgrade texts
         splitshot_text = font_upgrades.render("Splitshot:" +

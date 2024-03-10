@@ -1,5 +1,4 @@
 import pygame
-from default_settings import PLAYER_STARTING_HEALTH
 font = pygame.font.Font("assets/enviroment/ARCADECLASSIC.TTF", 20)
 font_upgrades = pygame.font.Font("assets/enviroment/ARCADECLASSIC.TTF", 12)
 
@@ -26,16 +25,18 @@ class HealthBar():
     Note: Ensure that the Pygame library and the default_settings module are
         properly configured before using this class.
     """
-    def __init__(self, x, y, w, h, player_health):
+
+    def __init__(self, x, y, w, h, player_health, player_max_health):
         self.x = x
         self.y = y
         self.w = w
         self.h = h
         self.player_health = player_health
+        self.player_max_health = player_max_health
         self.health_text = font.render(str(self.player_health), True, "red")
 
     def draw(self, surface):
-        ratio = self.player_health / PLAYER_STARTING_HEALTH
+        ratio = self.player_health / self.player_max_health
         pygame.draw.rect(surface, (0, 0, 0, 0.5),
                          (self.x, self.y, self.w, self.h))
         pygame.draw.rect(surface, (31, 0, 54, 0.5),

@@ -31,7 +31,7 @@ class Bullet(pygame.sprite.Sprite):
     - y (int): The initial y-coordinate of the bullet's spawn position.
     - angle (float): The angle at which the bullet is fired (in degrees).
     """
-    def __init__(self, x, y, angle):
+    def __init__(self, x, y, angle, damage):
         super().__init__()
         self.image = pygame.image.load("assets/player/bullet.png")
         self.image = pygame.transform.rotozoom(self.image, 0, BULLET_SIZE)
@@ -45,7 +45,7 @@ class Bullet(pygame.sprite.Sprite):
         self.y_vel = math.sin(self.angle * (2 * math.pi / 360)) * self.speed
         self.lifetime = BULLET_LIFETIME
         self.spawn_time = pygame.time.get_ticks()
-        self.damage = 50
+        self.damage = damage
 
     def bullet_movement(self):
         """

@@ -131,7 +131,7 @@ class Enemy(pygame.sprite.Sprite):
                                                  player.penetrationStatus)
         for bullet in bullet_hit:
             if bullet != self.last_bullet:
-                self.health -= bullet.damage
+                self.health -= player.bullet_damage
                 self.last_bullet = bullet
 
     def death(self):
