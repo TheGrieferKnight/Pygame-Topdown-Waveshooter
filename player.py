@@ -4,8 +4,6 @@ import random
 
 import pygame
 
-from pygame.locals import *
-
 from pygame.math import Vector2
 
 from pygame.sprite import Sprite, Group
@@ -134,7 +132,7 @@ class Player(pygame.sprite.Sprite):
             self.velocity_x /= math.sqrt(2)
             self.velocity_y /= math.sqrt(2)
 
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_SPACE] or pygame.mouse.get_pressed()[0] is True:
             self.shoot = True
             self.shooting(self.num_bullets)
         else:
