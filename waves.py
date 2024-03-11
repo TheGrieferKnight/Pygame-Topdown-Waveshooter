@@ -8,11 +8,14 @@ from default_settings import (
 )
 from enemy import Enemy
 
+
 class Waves:
     """
-    Waves class for managing enemy wave spawning in a Pygame-based shooting game.
+    Waves class for managing enemy wave spawning in a Pygame-based shooting
+    game.
 
-    This class handles the timing and properties of enemy wave spawns based on the game difficulty.
+    This class handles the timing and properties of enemy wave spawns based on
+    the game difficulty.
 
     Attributes:
         last_spawn_time (int): Time of the last enemy spawn.
@@ -22,11 +25,15 @@ class Waves:
         difficulty (int): Difficulty level of the game.
 
     Methods:
-        __init__(self, difficulty): Initializes the Waves object with specified difficulty and initial values.
-        spawn_enemy(self): Spawns an enemy at a random location with adjusted properties based on the enemy counter.
-        update(self): Updates the enemy wave, checking for cooldown and triggering enemy spawns.
+        __init__(self, difficulty): Initializes the Waves object with
+            specified difficulty and initial values.
+        spawn_enemy(self): Spawns an enemy at a random location with adjusted
+            properties based on the enemy counter.
+        update(self): Updates the enemy wave, checking for cooldown and
+            triggering enemy spawns.
 
-    Note: Ensure that the required classes and variables are properly defined before creating an instance of this class.
+    Note: Ensure that the required classes and variables are properly defined
+        before creating an instance of this class.
     """
 
     def __init__(self, difficulty):
@@ -36,8 +43,7 @@ class Waves:
         self.enemy_counter = 0
         self.spawn_multiplier = 0.009
         self.difficulty = difficulty
-        
-        # Adjusted spawn_multiplier based on difficulty for more granular control
+
         if self.difficulty == 1:
             self.spawn_multiplier = 1.0125
         elif self.difficulty == 2:
@@ -47,7 +53,8 @@ class Waves:
 
     def spawn_enemy(self):
         """
-        Spawns an enemy at a random location with adjusted properties based on the enemy counter.
+        Spawns an enemy at a random location with adjusted properties based on
+        the enemy counter.
         """
         x = random.randint(0, WIDTH)
         y = random.randint(0, HEIGHT)
@@ -56,7 +63,7 @@ class Waves:
         # Adjust enemy properties based on the enemy_counter and difficulty
         base_health = 100 + int(2 * self.spawn_multiplier * self.enemy_counter)
         base_speed = 2 + (0.02 * self.spawn_multiplier * self.enemy_counter)
-        base_worth = 1 + (0.1 * self.spawn_multiplier * self.enemy_counter)
+        # base_worth = 1 + (0.1 * self.spawn_multiplier * self.enemy_counter)
 
         self.enemy_counter += 1
 
@@ -70,7 +77,8 @@ class Waves:
 
     def update(self):
         """
-        Updates the enemy wave, checking for cooldown and triggering enemy spawns.
+        Updates the enemy wave, checking for cooldown and triggering enemy
+        spawns.
         """
         if (pygame.time.get_ticks() - self.last_spawn_time) >= self.spawn_cd:
             self.last_spawn_time = pygame.time.get_ticks()
