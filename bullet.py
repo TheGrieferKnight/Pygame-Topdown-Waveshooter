@@ -31,6 +31,7 @@ class Bullet(pygame.sprite.Sprite):
     - y (int): The initial y-coordinate of the bullet's spawn position.
     - angle (float): The angle at which the bullet is fired (in degrees).
     """
+
     def __init__(self, x, y, angle, damage):
         super().__init__()
         self.image = pygame.image.load("assets/player/bullet.png")
@@ -57,6 +58,7 @@ class Bullet(pygame.sprite.Sprite):
         self.y += self.y_vel
         self.rect.x = int(self.x)
         self.rect.y = int(self.y)
+
         if pygame.time.get_ticks() - self.spawn_time > self.lifetime:
             self.kill()
 

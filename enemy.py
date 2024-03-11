@@ -78,6 +78,7 @@ class Enemy(pygame.sprite.Sprite):
         Pre-renders rotated images and stores them in a list.
         """
         angles = range(0, 360, 5)
+
         for angle in angles:
             rotated_image = pygame.transform.rotozoom(self.image, -angle, 1)
             self.rotated_images.append(rotated_image)
@@ -100,6 +101,7 @@ class Enemy(pygame.sprite.Sprite):
         """
         player_vector = pygame.math.Vector2(player.hitbox.center)
         enemy_vector = pygame.math.Vector2(self.rect.center)
+
         if not pygame.sprite.collide_rect(self, player):
             self.direction = (player_vector - enemy_vector).normalize()
             self.timer = 0
@@ -115,6 +117,7 @@ class Enemy(pygame.sprite.Sprite):
                 player.health -= self.damage
                 self.count = 0
                 self.damage_applied = True
+
         self.velocity = self.direction * self.speed
         self.position += self.velocity
         self.rect.centerx = self.position.x
@@ -141,10 +144,13 @@ class Enemy(pygame.sprite.Sprite):
         player's money and potentially increases the player's stat points.
         """
         chance = randint(0, 10)
+
         if self.health <= 0:
             player.money = round(player.money + self.worth, 2)
+
             if chance == 10:
                 player.stat_points += 1
+
             self.kill()
 
     def update(self):

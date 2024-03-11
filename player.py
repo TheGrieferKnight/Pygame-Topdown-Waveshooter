@@ -108,13 +108,16 @@ class Player(pygame.sprite.Sprite):
     def player_input(self):
         self.velocity_x = 0
         self.velocity_y = 0
+
         keys = pygame.key.get_pressed()
+
         # if keys[pygame.K_ESCAPE]:
         #     pause = True
         #     while pause == True:
         #         keys = pygame.key.get_pressed()
         #         if keys[pygame.K_f]:
         #             pause = False
+
         if keys[pygame.K_w]:
             self.velocity_y = -self.speed
         if keys[pygame.K_s]:
@@ -123,11 +126,13 @@ class Player(pygame.sprite.Sprite):
             self.velocity_x = -self.speed
         if keys[pygame.K_d]:
             self.velocity_x = self.speed
+
         # Check for diagonal movement
         if self.velocity_x != 0 and self.velocity_y != 0:
             self.velocity_x /= math.sqrt(2)
             self.velocity_y /= math.sqrt(2)
-        if keys[pygame.K_SPACE]:
+
+        if keys[pygame.K_SPACE] or pygame.mouse.get_pressed()[0] is True:
             self.shoot = True
             self.shooting(self.num_bullets)
         else:
@@ -143,6 +148,7 @@ class Player(pygame.sprite.Sprite):
             bullet_spawn_pos = self.pos + self.barrel.rotate(self.angle)
             pygame.mixer.Sound.stop(self.shot_sound)
             pygame.mixer.Sound.play(self.shot_sound, fade_ms=100)
+
             for i in range(num_bullets):
                 # TODO: #1 Work on angle to be infront of player only
                 bullet_angle = self.angle - (

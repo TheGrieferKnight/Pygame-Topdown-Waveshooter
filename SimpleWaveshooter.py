@@ -44,6 +44,7 @@ def main():
         upgrade_cost = main_game.player_statss.get_upgrade_cost(stat_name)
 
         if player_stat_points is not None:
+
             if player_stat_points >= upgrade_cost:
                 # Perform the stat upgrade
                 getattr(main_game.player_statss, f"upgrade_{stat_name.replace(
@@ -58,7 +59,6 @@ def main():
                 stat_label = stat_labels[stat_name]
                 stat_label.set_title("{}: {}".format(stat_name, getattr(
                     main_game.player_statss, stat_name.replace(' ', '_').lower(
-
                     ))))
 
                 # Return any relevant information about the upgrade

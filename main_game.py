@@ -111,6 +111,7 @@ def main_game(difficulty):
 
             if 5 <= mouse[0] <= 5 + 200 and 50 <= mouse[1] <= 50 + 30 and \
                     player.money >= SPLIT_SHOT_PRICE_SCALED:
+
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     player.upgrade_split_shot()
                     player.money -= SPLIT_SHOT_PRICE_SCALED
@@ -123,8 +124,10 @@ def main_game(difficulty):
                 pygame.draw.rect(background, 'white', [5, 90, 200, 30])
 
             if PENETRATION_PRICE_SCALED is not None:
+
                 if 5 <= mouse[0] <= 5 + 200 and 90 <= mouse[1] <= 90 + 30 and \
                         player.money >= PENETRATION_PRICE_SCALED:
+
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         player.penetrationStatus = False
                         player.money -= PENETRATION_PRICE_SCALED
