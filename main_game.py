@@ -70,6 +70,8 @@ def main_game(difficulty):
 
     pygame.mixer.music.load("assets/enviroment/ost.mp3")
 
+    pygame.mixer.music.play()
+
     # Convert difficulty from list to integer
     difficulty = int(difficulty[0])
 
