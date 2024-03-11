@@ -147,7 +147,6 @@ class Enemy(pygame.sprite.Sprite):
         if self.health <= 0:
             chance = randint(0, 10)
             player.money = round(player.money + self.worth, 2)
-            player.stat_points += 1
 
             if chance == 10:
                 player.stat_points += 1
