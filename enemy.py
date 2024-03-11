@@ -143,10 +143,11 @@ class Enemy(pygame.sprite.Sprite):
         so, adds their worth to the
         player's money and potentially increases the player's stat points.
         """
-        chance = randint(0, 10)
 
         if self.health <= 0:
+            chance = randint(0, 10)
             player.money = round(player.money + self.worth, 2)
+            player.stat_points += 1
 
             if chance == 10:
                 player.stat_points += 1

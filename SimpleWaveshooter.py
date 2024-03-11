@@ -3,8 +3,6 @@ from pygame_menu import sound
 from default_settings import WIDTH, HEIGHT
 import main_game
 
-main_game.player.stat_points = 100
-
 
 def main():
     """
@@ -39,17 +37,17 @@ def main():
         # Set the difficulty level based on the selected option
         difficulty_var[0] = options_mapping.get(value, 1)
 
-    def upgrade_stat(stat_name, player_stat_points):
+    def upgrade_stat(stat_name):
         # Determine the cost of upgrading the specified stat
         upgrade_cost = main_game.player_statss.get_upgrade_cost(stat_name)
 
-        if player_stat_points is not None:
+        if main_game.player.stat_points is not None:
 
-            if player_stat_points >= upgrade_cost:
+            if main_game.player.stat_points >= upgrade_cost:
                 # Perform the stat upgrade
                 getattr(main_game.player_statss, f"upgrade_{stat_name.replace(
                     ' ', '_').lower()}")()  # Use lowercase
-                player_stat_points -= upgrade_cost
+                main_game.player.stat_points -= upgrade_cost
 
                 # Update the button text with the new cost
                 stat_button = stat_buttons[stat_name]
@@ -114,7 +112,7 @@ def main():
         stat_button = stat_menu.add.button("Upgrade {} ({} points)".format(
             stat_name, main_game.player_statss.get_upgrade_cost(stat_name)),
                                         lambda name=stat_name: upgrade_stat(
-                                           name, main_game.player.stat_points))
+                                           name))
         stat_buttons[stat_name] = stat_button
         stat_labels[stat_name] = stat_label
 
@@ -149,11 +147,11 @@ def main():
 
     # Add options to the menu
     main_menu.add.button('Play', lambda: play(difficulty))
-    main_menu.add.button("Stats", stat_menu)
     main_menu.add.selector(
         "Difficulty:", [("Easy", "easy"), ("Medium", "medium"),
                         ("Hard", "hard")],
         onchange=lambda _, value: change_difficulty(_, value, difficulty))
+    main_menu.add.button("Stats", stat_menu)
     # # main_menu.add.button("Settings", settings_menu)  # WIP
     main_menu.add.button("Quit", pygame_menu.events.EXIT)
 
