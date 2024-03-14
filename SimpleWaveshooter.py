@@ -1,7 +1,43 @@
 import pygame_menu
 from pygame_menu import sound
-from default_settings import WIDTH, HEIGHT
+from default_settings import WIDTH, HEIGHT, SPLIT_SHOT_PRICE, PENETRATION_PRICE
 import main_game
+
+upgrade_splitshot_button = None
+
+
+def update_splitshot(button):
+    button.set_title("Splitshot: " + str(SPLIT_SHOT_PRICE_SCALED))
+
+
+def change_difficulty(_, value, difficulty):
+    """
+    Callback function to change the difficulty level based on the selected
+    option.
+
+    Parameters:
+    - _: Placeholder for the first argument (not used).
+    - value (str): The selected difficulty option ("easy", "medium", or
+        "hard").
+    - difficulty_var (list): A mutable list containing the current
+        difficulty level.
+
+    Returns:
+    None
+    """
+    global SPLIT_SHOT_PRICE_SCALED
+    global PENETRATION_PRICE_SCALED
+
+    options_mapping = {"easy": 1, "medium": 2, "hard": 3}
+
+    # Set the difficulty level based on the selected option
+    difficulty[0] = options_mapping.get(value, 1)
+    difficulty = int(difficulty[0])
+
+    SPLIT_SHOT_PRICE_SCALED = int(SPLIT_SHOT_PRICE[difficulty - 1])
+    PENETRATION_PRICE_SCALED = int(PENETRATION_PRICE[difficulty - 1])
+
+    update_splitshot(upgrade_splitshot_button)
 
 
 def main():
@@ -16,26 +52,7 @@ def main():
 
     # Initialize the difficulty level
     difficulty = [1]
-
-    def change_difficulty(_, value, difficulty_var):
-        """
-        Callback function to change the difficulty level based on the selected
-        option.
-
-        Parameters:
-        - _: Placeholder for the first argument (not used).
-        - value (str): The selected difficulty option ("easy", "medium", or
-            "hard").
-        - difficulty_var (list): A mutable list containing the current
-            difficulty level.
-
-        Returns:
-        None
-        """
-        options_mapping = {"easy": 1, "medium": 2, "hard": 3}
-
-        # Set the difficulty level based on the selected option
-        difficulty_var[0] = options_mapping.get(value, 1)
+    SPLIT_SHOT_PRICE_SCALED = SPLIT_SHOT_PRICE[int(difficulty[0]) - 1]
 
     def upgrade_stat(stat_name):
         # Determine the cost of upgrading the specified stat
@@ -78,13 +95,20 @@ def main():
             stat_label.set_title("{}: {}".format(stat_name, getattr(
                 main_game.player_statss, stat_name.replace(' ', '_').lower())))
 
+    def upgrade_splitshot():
+        if main_game.player.money >= SPLIT_SHOT_PRICE_SCALED:
+            main_game.player.money -= SPLIT_SHOT_PRICE_SCALED
+            main_game.player.upgrade_split_shot()
+        else:
+            upgrade_splitshot_button.set_title("Splitshot: TOO EXPENSIVE")
+
     # Create the main menu theme
     myimage = pygame_menu.baseimage.BaseImage(
         image_path="assets/enviroment/background.png",
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY,
     )
 
-    main_menu_theme = pygame_menu.Theme(
+    menu_theme = pygame_menu.Theme(
         title_offset=(WIDTH / 2 - 100, 0),
         title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_UNDERLINE,
         title_font=menu_font,
@@ -97,13 +121,27 @@ def main():
     # # settings_menu = pygame_menu.Menu("Settings",
     # #                                  WIDTH,
     # #                                  HEIGHT,
-    # #                                  theme=main_menu_theme)
+    # #                                  theme=menu_theme)
+
+    upgrades_menu = pygame_menu.Menu("Upgrades", WIDTH, HEIGHT,
+                                     theme=menu_theme)
+
+    upgrades_menu.add.label("Money: " + str(main_game.player.money))
+
+    upgrade_splitshot_button = \
+        upgrades_menu.add.button("Splitshot: " +
+                                 str(SPLIT_SHOT_PRICE_SCALED),
+                                 upgrade_splitshot)
 
     stat_menu = pygame_menu.Menu("Stats", WIDTH, HEIGHT,
-                                 theme=main_menu_theme)
+                                 theme=menu_theme)
+
+    change_difficulty("_", "easy", difficulty)
 
     stat_buttons = {}
     stat_labels = {}
+
+    stat_menu.add.label("Stat Points: " + str(main_game.player.stat_points))
 
     # Add stat buttons and labels
     for stat_name in ["Bullet Damage", "Max Health", "Speed"]:
@@ -122,7 +160,7 @@ def main():
     main_menu = pygame_menu.Menu("Main Menu",
                                  WIDTH,
                                  HEIGHT,
-                                 theme=main_menu_theme)
+                                 theme=menu_theme)
 
     def reset_stat_labels():
         for stat_name, stat_label in stat_labels.items():
@@ -133,17 +171,23 @@ def main():
 
     # Set up the menu sounds
     engine = sound.Sound()
+
     engine.set_sound(sound.SOUND_TYPE_CLICK_MOUSE,
                      "assets/enviroment/menu_click.mp3")
     engine.set_sound(sound.SOUND_TYPE_KEY_ADDITION,
                      "assets/enviroment/menu_click.mp3")
     engine.set_sound(sound.SOUND_TYPE_OPEN_MENU,
                      "assets/enviroment/menu_click.mp3")
+    engine.set_sound(sound.SOUND_TYPE_CLOSE_MENU,
+                     "assets/enviroment/menu_click.mp3")
     engine.set_sound(sound.SOUND_TYPE_WIDGET_SELECTION,
                      "assets/enviroment/menu_click.mp3")
-    engine.set_sound(sound.SOUND_TYPE_OPEN_MENU,
+    engine.set_sound(sound.SOUND_TYPE_EVENT,
                      "assets/enviroment/menu_click.mp3")
+
     main_menu.set_sound(engine, recursive=True)
+    upgrades_menu.set_sound(engine, recursive=True)
+    stat_menu.set_sound(engine, recursive=True)
 
     # Add options to the menu
     main_menu.add.button('Play', lambda: play(difficulty))
@@ -152,6 +196,7 @@ def main():
                         ("Hard", "hard")],
         onchange=lambda _, value: change_difficulty(_, value, difficulty))
     main_menu.add.button("Stats", stat_menu)
+    main_menu.add.button("Upgrades", upgrades_menu)
     # # main_menu.add.button("Settings", settings_menu)  # WIP
     main_menu.add.button("Quit", pygame_menu.events.EXIT)
 
