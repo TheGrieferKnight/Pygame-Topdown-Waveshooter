@@ -60,8 +60,6 @@ Certainly, here's a modified version to reflect the zipped release:
 
 Enjoy a straightforward waveshooting experience!
 
-This version specifies that the release is a zip file and instructs users to extract its contents before running the executable.
-
 ## Contributing
 
 Feel free to contribute by opening issues or submitting pull requests for any improvements or bug fixes.
