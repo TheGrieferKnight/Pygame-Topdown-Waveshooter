@@ -1,18 +1,26 @@
 import math
 import pygame
 from bullet import Bullet
-from default_settings import (WIDTH, HEIGHT, PLAYER_START_X, PLAYER_START_Y,
-                              PLAYER_BASE_AMMOCOUNT, PYGAME_DISPLAY,
-                              PLAYER_SIZE, SHOT_CD_0)
+from default_settings import (
+    WIDTH,
+    HEIGHT,
+    PLAYER_START_X,
+    PLAYER_START_Y,
+    PLAYER_BASE_AMMOCOUNT,
+    PYGAME_DISPLAY,
+    PLAYER_SIZE,
+    SHOT_CD_0,
+)
 import player_stats
 from sprites import sprites_group, player_group, bullet_sprites_group
+
 clock = pygame.time.Clock()
 
 # Create Pygame Window
 screen = pygame.display.set_mode((WIDTH, HEIGHT), display=PYGAME_DISPLAY)
 background = pygame.transform.scale(
-    pygame.image.load("assets/enviroment/background.png").convert(),
-    (WIDTH, HEIGHT))
+    pygame.image.load("assets/enviroment/background.png").convert(), (WIDTH, HEIGHT)
+)
 pygame.init()
 pygame.display.toggle_fullscreen()
 pygame.font.init()
@@ -65,6 +73,7 @@ class Player(pygame.sprite.Sprite):
     Note: Ensure that the required classes and variables are properly defined
         before creating an instance of this class.
     """
+
     def __init__(self):
         super().__init__(sprites_group, player_group)
         self.pos = pygame.Vector2(PLAYER_START_X, PLAYER_START_Y)
@@ -77,16 +86,16 @@ class Player(pygame.sprite.Sprite):
         self.base = self.image
         self.hitbox = self.base.get_rect(center=self.pos)
         self.rect = self.hitbox.copy()
-        self.speed = getattr(player_statss, 'speed')
+        self.speed = getattr(player_statss, "speed")
         self.shoot = False
         self.shot_cd = 0
         self.barrel = pygame.math.Vector2(40, -5)
-        self.max_health = getattr(player_statss, 'max_health')
+        self.max_health = getattr(player_statss, "max_health")
         self.health = self.max_health
         self.health_display = font.render(str(self.health), True, "red")
         self.num_bullets = 1
         self.money = 0
-        self.shot_sound = pygame.mixer.Sound("assets/player/shot_sound.ogg")
+        self.shot_sound = pygame.mixer.Sound("assets/player/shot_sound.mp3")
         self.shot_sound.set_volume(0.1)
         self.penetrationStatus = True
         self.max_ammo = PLAYER_BASE_AMMOCOUNT
@@ -94,14 +103,15 @@ class Player(pygame.sprite.Sprite):
         self.timer = pygame.time.get_ticks()
         self.stat_points = 0
         self.bullet = None
-        self.bullet_damage = getattr(player_statss, 'bullet_damage')
+        self.bullet_damage = getattr(player_statss, "bullet_damage")
 
     def player_rotation(self):
         self.mouse_cords = pygame.mouse.get_pos()
         self.x_diff_mouse_player = self.mouse_cords[0] - self.hitbox.centerx
         self.y_diff_mouse_player = self.mouse_cords[1] - self.hitbox.centery
         self.angle = math.degrees(
-            math.atan2(self.y_diff_mouse_player, self.x_diff_mouse_player))
+            math.atan2(self.y_diff_mouse_player, self.x_diff_mouse_player)
+        )
         self.image = pygame.transform.rotate(self.base, -self.angle)
         self.rect = self.image.get_rect(center=self.hitbox.center)
 
@@ -139,8 +149,7 @@ class Player(pygame.sprite.Sprite):
             self.shoot = False
 
     def shooting(self, num_bullets=1):
-        if (pygame.time.get_ticks() - self.timer) >= SHOT_CD_0 and \
-                self.ammo > 0:
+        if (pygame.time.get_ticks() - self.timer) >= SHOT_CD_0 and self.ammo > 0:
             self.shot_cd = SHOT_CD_0
             self.timer = pygame.time.get_ticks()
             self.ammo -= 1
@@ -151,17 +160,21 @@ class Player(pygame.sprite.Sprite):
 
             for i in range(num_bullets):
                 # TODO: #1 Work on angle to be infront of player only
-                bullet_angle = self.angle - (
-                    i - num_bullets // 2) * SPLIT_SHOT_ANGLE
-                self.bullet = Bullet(bullet_spawn_pos[0],
-                                     bullet_spawn_pos[1], bullet_angle,
-                                     self.bullet_damage)
+                bullet_angle = self.angle - (i - num_bullets // 2) * SPLIT_SHOT_ANGLE
+                self.bullet = Bullet(
+                    bullet_spawn_pos[0],
+                    bullet_spawn_pos[1],
+                    bullet_angle,
+                    self.bullet_damage,
+                )
                 bullet_sprites_group.add(self.bullet)
                 sprites_group.add(self.bullet)
 
     def reload(self):
-        if self.ammo < self.max_ammo and \
-                (pygame.time.get_ticks() - self.timer) >= SHOT_CD_0 * 3:
+        if (
+            self.ammo < self.max_ammo
+            and (pygame.time.get_ticks() - self.timer) >= SHOT_CD_0 * 3
+        ):
             self.timer = pygame.time.get_ticks()
             self.ammo += 1
 
